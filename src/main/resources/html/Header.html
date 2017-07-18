@@ -1,121 +1,230 @@
-<nav class="aui-header aui-dropdown2-trigger-group" role="navigation" resolved="" data-aui-responsive="true"><div class="aui-header-inner"><div class="aui-header-primary"><h1 id="logo" class="aui-header-logo aui-header-logo-custom"><a href="http://localhost:2990/jira/secure/MyJiraHome.jspa"><img src="/jira/s/r1ydn0/72004/b6b48b2829824b869586ac216d119363/_/images/icon-jira-logo.png" alt="Your Company JIRA" data-aui-responsive-header-index="0"></a></h1><ul class="aui-nav" style="width: auto;" resolved=""><li><a href="/jira/secure/Dashboard.jspa" class=" aui-nav-link aui-dropdown2-trigger aui-dropdown2-ajax" id="home_link" aria-haspopup="true" aria-controls="home_link-content" title="View and manage your dashboards" accesskey="d" resolved="" aria-expanded="false">Dashboards</a><div class="aui-dropdown2 aui-style-default aui-layer" id="home_link-content" data-aui-dropdown2-ajax-key="home_link" resolved="" aria-hidden="true"></div></li><li><a href="/jira/browse/SCRUM" class=" aui-nav-link aui-dropdown2-trigger aui-dropdown2-ajax" id="browse_link" aria-haspopup="true" aria-controls="browse_link-content" title="View recent projects and browse a list of projects" accesskey="p" resolved="" aria-expanded="false">Projects</a><div class="aui-dropdown2 aui-style-default aui-layer" id="browse_link-content" data-aui-dropdown2-ajax-key="browse_link" resolved="" aria-hidden="true"></div></li><li><a href="/jira/issues/" class=" aui-nav-link aui-dropdown2-trigger aui-dropdown2-ajax" id="find_link" aria-haspopup="true" aria-controls="find_link-content" title="Search for issues and view recent issues" accesskey="i" resolved="" aria-expanded="false">Issues</a><div class="aui-dropdown2 aui-style-default aui-layer" id="find_link-content" data-aui-dropdown2-ajax-key="find_link" resolved="" aria-hidden="true"></div></li><li><a href="/jira/secure/RapidBoard.jspa" class=" aui-nav-link aui-dropdown2-trigger aui-dropdown2-ajax" id="greenhopper_menu" aria-haspopup="true" aria-controls="greenhopper_menu-content" title="Manage your project with JIRA Software" resolved="" aria-expanded="false">Boards</a><div class="aui-dropdown2 aui-style-default aui-layer" id="greenhopper_menu-content" data-aui-dropdown2-ajax-key="greenhopper_menu" resolved="" aria-hidden="true"></div></li>
-                <li id="create-menu"><a id="create_link" class="aui-button aui-button-primary aui-style create-issue " title="Create a new issue / bug / feature request / etc ( Type 'c' )" href="/jira/secure/CreateIssue!default.jspa" accesskey="c">Create</a></li></ul></div><div class="aui-header-secondary"><ul class="aui-nav" resolved=""><li>
-                    <form action="/jira/secure/QuickSearch.jspa" method="get" id="quicksearch" class="aui-quicksearch dont-default-focus ajs-dirty-warning-exempt">
-                        <input id="quickSearchInput" class="search" type="text" title="Search ( Type '/' )" placeholder="Search" name="searchString" accesskey="q">
+<nav class="aui-header aui-dropdown2-trigger-group" role="navigation">
+    <div class="aui-header-inner">
+        <div class="aui-header-before"><a class=" aui-dropdown2-trigger app-switcher-trigger" aria-owns="app-switcher"
+                                          aria-controls="app-switcher" aria-haspopup="true" data-aui-trigger
+                                          href="#app-switcher"><span
+                class="aui-icon aui-icon-small aui-iconfont-appswitcher">Linked Applications</span></a>
+            <div id="app-switcher" class="aui-dropdown2 aui-style-default">
+                <div class="app-switcher-loading">Loading&hellip;</div>
+            </div>
+            <script>
+                (function (NL) {
+                    var initialise = function () {
+                        // For some milestones of AUI, the atlassian soy namespace was renamed to aui. Handle that here by ensuring that window.atlassian is defined.
+                        window.atlassian = window.atlassian || window.aui;
+                        new NL.AppSwitcher({
+                            dropdownContents: '#app-switcher'
+                        });
+                    };
+                    if (NL.AppSwitcher) {
+                        initialise();
+                    } else {
+                        NL.onInit = initialise;
+                    }
+                }(window.NL = (window.NL || {})));
+                window.NL.environment = {isUserAdmin: false, isAppSuggestionAvailable: false};</script>
+        </div>
+        <div class="aui-header-primary"><h1 id="logo" class="aui-header-logo aui-header-logo-custom"><a
+                href="https://ticket.ecx.io/secure/MyJiraHome.jspa"><img
+                src="https://ticket.ecx.io/s/en_USi96pjh/64026/264/_/jira-logo-scaled.png" alt="Jira"/></a></h1>
+            <ul class='aui-nav'>
+
+
+                <li><a class="aui-nav-link aui-dropdown2-ajax jira-ajax-menu aui-dropdown2-trigger "
+                       href="https://ticket.ecx.io/secure/Dashboard.jspa" id="home_link" accessKey="d"
+                       title="View and manage your dashboards" aria-haspopup="true" aria-owns="home_link-content">Dashboards</a>
+                    <div id="home_link-content" class="aui-dropdown2 aui-style-default"
+                         data-aui-dropdown2-ajax-key="home_link"></div>
+                </li>
+                <li><a class="aui-nav-link aui-dropdown2-ajax jira-ajax-menu aui-dropdown2-trigger "
+                       href="https://ticket.ecx.io/browse/HTLGR" id="browse_link" accessKey="p"
+                       title="View recent projects and browse a list of projects" aria-haspopup="true"
+                       aria-owns="browse_link-content">Projects</a>
+                    <div id="browse_link-content" class="aui-dropdown2 aui-style-default"
+                         data-aui-dropdown2-ajax-key="browse_link"></div>
+                </li>
+                <li><a class="aui-nav-link aui-dropdown2-ajax jira-ajax-menu aui-dropdown2-trigger " href="https://ticket.ecx.io/issues/"
+                       id="find_link" accessKey="i" title="Search for issues and view recent issues"
+                       aria-haspopup="true" aria-owns="find_link-content">Issues</a>
+                    <div id="find_link-content" class="aui-dropdown2 aui-style-default"
+                         data-aui-dropdown2-ajax-key="find_link"></div>
+                </li>
+                <li><a class="aui-nav-link aui-dropdown2-trigger " href="https://ticket.ecx.io/secure/TempoInfo.jspa" id="tempo_menu"
+                       title="Open Tempo Timesheet" aria-haspopup="true" aria-owns="tempo_menu-content">Tempo</a>
+                    <div id="tempo_menu-content" class="aui-dropdown2 aui-style-default">
+                        <div class="aui-dropdown2-section">
+                            <ul id="tempo_menu_dropdown" class="aui-list-truncate ">
+                                <li><a id="timesheet-mlink" class="   " title="View timesheets and log work"
+                                       href="https://ticket.ecx.io/secure/TempoUserBoard!timesheet.jspa">Timesheets</a></li>
+                                <li><a id="tempo-bar-mlink" class=" tempo-bar-show  " title="Open the Tracker Bar"
+                                       href="https://ticket.ecx.io/secure/TempoUserBoard!timesheet.jspa">Tracker</a></li>
+                            </ul>
+                        </div>
+                        <div class="aui-dropdown2-section"><strong>Planner</strong>
+                            <ul id="tempo_planner" class="aui-list-truncate ">
+                                <li><a id="program_" class=" " title="Go to Program Planning"
+                                       href="https://ticket.ecx.io/secure/ProgramPlanning.jspa">Program Planning</a></li>
+                                <li><a id="team_" class=" " title="Go to Team Planning"
+                                       href="https://ticket.ecx.io/secure/TeamPlanning.jspa">Team Planning</a></li>
+                            </ul>
+                        </div>
+                        <div class="aui-dropdown2-section"><strong>Teams</strong>
+                            <ul id="tempo_team_menu" class="aui-list-truncate ">
+                                <li><a id="tempo_teams_dropdown_item" class=" " title="All Teams"
+                                       href="https://ticket.ecx.io/secure/TempoTeams!default.jspa">more...</a></li>
+                            </ul>
+                        </div>
+                        <div class="aui-dropdown2-section"><strong>Accounts</strong>
+                            <ul id="accounts_v2_menu_dropdown" class="aui-list-truncate ">
+                                <li><a id="accounts_more_lnk" class=" " title="All Accounts"
+                                       href="https://ticket.ecx.io/secure/TempoAccounts!default.jspa">more...</a></li>
+                            </ul>
+                        </div>
+                        <div class="aui-dropdown2-section">
+                            <ul id="tempo_menu_extra" class="aui-list-truncate ">
+                                <li><a id="about-mlink" class=" tempoaction-open-large-form  "
+                                       title="Get Tempo version and license information" href="https://ticket.ecx.io/secure/AboutTempo.jspa">About
+                                    Tempo</a></li>
+                                <li><a id="tempo-getting-started-link" class="   " title="Getting Started with Tempo"
+                                       href="https://ticket.ecx.io/secure/TempoGettingStarted.jspa">Getting Started</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li><a class="aui-nav-link aui-dropdown2-ajax jira-ajax-menu aui-dropdown2-trigger "
+                       href="https://ticket.ecx.io/secure/GreenHopper.jspa" id="greenhopper_menu" title="Manage your project with JIRA Agile"
+                       aria-haspopup="true" aria-owns="greenhopper_menu-content">Agile</a>
+                    <div id="greenhopper_menu-content" class="aui-dropdown2 aui-style-default"
+                         data-aui-dropdown2-ajax-key="greenhopper_menu"></div>
+                </li>
+                <li id="create-menu"><a id="create_link" class="aui-button aui-button-primary aui-style create-issue "
+                                        title="Create a new issue / bug / feature request / etc"
+                                        href="https://ticket.ecx.io/secure/CreateIssue!default.jspa" accesskey="c">Create</a></li>
+            </ul>
+        </div>
+        <div class="aui-header-secondary">
+            <ul class='aui-nav'>
+                <li>
+                    <form action="https://ticket.ecx.io/secure/QuickSearch.jspa" method="get" id="quicksearch"
+                          class="aui-quicksearch dont-default-focus ajs-dirty-warning-exempt">
+                        <input id="quickSearchInput" class="search" type="text" title="Search" placeholder="Search"
+                               name="searchString" accessKey="q"/>
                         <input type="submit" class="hidden" value="Search">
                     </form>
-                </li><li><a class="jira-feedback-plugin" role="button" aria-haspopup="true" id="jira-header-feedback-link" href="#"><span class="aui-icon aui-icon-small jira-feedback-plugin-icon">Give feedback to Atlassian</span></a></li>
-
+                </li>
 
 
                 <li id="system-help-menu">
-                    <a class="aui-nav-link aui-dropdown2-trigger" id="help_menu" aria-haspopup="true" href="https://docs.atlassian.com/jira/jsw-docs-072/" target="$textUtils.htmlEncode($rootHelpMenuItem.params.target)" title="Help" resolved="" aria-controls="system-help-menu-content" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-help">Help</span></a>
-                    <div id="system-help-menu-content" class="aui-dropdown2 aui-style-default aui-layer" resolved="" aria-hidden="true">
+                    <a class="aui-nav-link aui-dropdown2-trigger" id="help_menu" aria-haspopup="true"
+                       aria-owns="system-help-menu-content"
+                       href="https://docs.atlassian.com/jira/docs-064/JIRA+Documentation"
+                       target="$textUtils.htmlEncode($rootHelpMenuItem.params.target)" title="Help"><span
+                            class="aui-icon aui-icon-small aui-iconfont-help">Help</span></a>
+                    <div id="system-help-menu-content" class="aui-dropdown2 aui-style-default">
                         <div class="aui-dropdown2-section">
                             <ul id="jira-help" class="aui-list-truncate">
                                 <li>
-                                    <a id="gh_view_help" class="aui-nav-link " title="Get help online for JIRA Software" href="https://docs.atlassian.com/jira/jsw-docs-072/" target="_blank">JIRA Software help</a>
+                                    <a id="view_help" class="" title="Goto the online documentation for JIRA"
+                                       href="https://docs.atlassian.com/jira/docs-064/JIRA+Documentation"
+                                       target="_blank">Online Help</a>
                                 </li>
                                 <li>
-                                    <a id="view_core_help" class="aui-nav-link " title="Go to the online documentation for JIRA Core" href="https://docs.atlassian.com/jira/jcore-docs-072/" target="_blank">JIRA Core help</a>
+                                    <a id="gh_view_help" class="" title="Get help online for JIRA Agile"
+                                       href="http://docs.atlassian.com/agile/docs-067/JIRA+Agile+Documentation"
+                                       target="_blank">JIRA Agile Help</a>
                                 </li>
                                 <li>
-                                    <a id="view_admin_help" class="aui-nav-link " title="Go to the latest JIRA admin documentation" href="https://docs.atlassian.com/jira/jadm-docs-072/" target="_blank">JIRA admin help</a>
+                                    <a id="keyshortscuthelp" class=""
+                                       title="Get more information about JIRA's Keyboard Shortcuts"
+                                       href="https://ticket.ecx.io/secure/ViewKeyboardShortcuts!default.jspa" target="_blank">Keyboard
+                                        Shortcuts</a>
                                 </li>
                                 <li>
-                                    <a id="keyshortscuthelp" class="aui-nav-link " title="Get more information about JIRA's Keyboard Shortcuts ( Type '?' )" href="/jira/secure/ViewKeyboardShortcuts!default.jspa" target="_blank">Keyboard Shortcuts</a>
+                                    <a id="view_about" class="" title="Get more information about JIRA"
+                                       href="https://ticket.ecx.io/secure/AboutPage.jspa">About JIRA</a>
                                 </li>
                                 <li>
-                                    <a id="view_about" class="aui-nav-link " title="Get more information about JIRA" href="/jira/secure/AboutPage.jspa">About JIRA</a>
+                                    <a id="view_credits" class="" title="See who did what"
+                                       href="https://ticket.ecx.io/secure/JiraCreditsPage!default.jspa" target="_blank">JIRA Credits</a>
                                 </li>
                                 <li>
-                                    <a id="view_credits" class="aui-nav-link " title="See who did what" href="/jira/secure/JiraCreditsPage!default.jspa" target="_blank">JIRA Credits</a>
-                                </li>
-                                <li>
-                                    <a id="developer-toolbox-link" class="aui-nav-link " href="/jira/plugins/servlet/developer-toolbox">Developer Toolbox</a>
+                                    <a id="tempo_core_help" class="" title="Goto the online documentation for Tempo"
+                                       href="https://tempoplugin.jira.com/wiki/display/TD/Tempo+Documentation"
+                                       target="_blank">Tempo Help</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </li>
-
-
-                <li id="system-admin-menu">
-                    <a href="/jira/plugins/servlet/applications/versions-licenses" id="admin_menu" class="aui-nav-link aui-dropdown2-trigger" aria-haspopup="true" title="Administration" resolved="" aria-controls="system-admin-menu-content" aria-expanded="false"><span class="aui-icon aui-icon-small aui-iconfont-configure">Administration</span></a>
-                    <div id="system-admin-menu-content" class="aui-dropdown2 aui-style-default aui-layer" resolved="" aria-hidden="true">
-                        <div class="aui-dropdown2-section">
-                            <strong>JIRA administration</strong>
-                            <ul class="aui-list-truncate">
-                                <li>
-                                    <a href="/jira/plugins/servlet/applications/versions-licenses" class="aui-nav-link" id="admin_applications_menu">Applications</a>
-                                </li>
-                                <li>
-                                    <a href="/jira/secure/project/ViewProjects.jspa" class="aui-nav-link" id="admin_project_menu">Projects</a>
-                                </li>
-                                <li>
-                                    <a href="/jira/secure/admin/ViewIssueTypes.jspa" class="aui-nav-link" id="admin_issues_menu">Issues</a>
-                                </li>
-                                <li>
-                                    <a href="/jira/plugins/servlet/upm/marketplace" class="aui-nav-link" id="admin_plugins_menu">Add-ons</a>
-                                </li>
-                                <li>
-                                    <a href="/jira/secure/admin/user/UserBrowser.jspa" class="aui-nav-link" id="admin_users_menu">User management</a>
-                                </li>
-                                <li>
-                                    <a href="/jira/secure/admin/ViewApplicationProperties.jspa" class="aui-nav-link" id="admin_system_menu">System</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-
-
-
-
-
-
 
 
                 <li id="user-options">
-                    <a id="header-details-user-fullname" class="aui-dropdown2-trigger aui-alignment-target aui-alignment-element-attached-top aui-alignment-element-attached-right aui-alignment-target-attached-bottom aui-alignment-target-attached-right" aria-haspopup="true" data-username="admin" data-displayname="admin" href="/jira/secure/ViewProfile.jspa" title="User profile for admin" resolved="" aria-controls="user-options-content" aria-expanded="false">
-                        <span class="aui-avatar aui-avatar-small">
-                            <span class="aui-avatar-inner">
-                                <img src="http://localhost:2990/jira/secure/useravatar?size=small&amp;avatarId=10334" alt="User profile for admin">
-                            </span>
-                        </span>
+                    <a id="header-details-user-fullname" class="aui-dropdown2-trigger" aria-haspopup="true"
+                       aria-owns="user-options-content" data-username="alexander.perndorfer"
+                       data-displayname="Alexander Perndorfer" href="https://ticket.ecx.io/secure/ViewProfile.jspa"
+                       title="User profile for Alexander Perndorfer">
+            <span class="aui-avatar aui-avatar-small">
+                <span class="aui-avatar-inner">
+                    <img src="https://ticket.ecx.io/secure/useravatar?size=small&avatarId=10108"
+                         alt="User profile for Alexander Perndorfer"/>
+                </span>
+            </span>
                     </a>
-
-                    <div id="user-options-content" class="aui-dropdown2 aui-style-default aui-layer aui-dropdown2-in-header aui-alignment-element aui-alignment-side-bottom aui-alignment-snap-right aui-alignment-element-attached-top aui-alignment-element-attached-right aui-alignment-target-attached-bottom aui-alignment-target-attached-right" resolved="" aria-hidden="true" data-aui-alignment="bottom auto" data-aui-alignment-static="true" style="z-index: 12000; top: 0px; left: 0px; position: absolute; transform: translateX(1749px) translateY(40px) translateZ(0px);">
+                    <div id="user-options-content" class="aui-dropdown2 aui-style-default">
                         <div class="aui-dropdown2-section">
                             <ul id="personal" class="aui-list-truncate">
                                 <li>
-                                    <a id="view_profile" class="" title="View and change your details and preferences" href="/jira/secure/ViewProfile.jspa" tabindex="-1">Profile</a>
+                                    <a id="view_profile" class="" title="View and change your details and preferences"
+                                       href="https://ticket.ecx.io/secure/ViewProfile.jspa">Profile</a>
                                 </li>
                                 <li>
-                                    <a id="upm-requests-link" class="" href="/jira/plugins/servlet/upm/requests?source=header_user" tabindex="-1">Atlassian Marketplace</a>
+                                    <a id="upm-requests-link" class=""
+                                       href="https://ticket.ecx.io/plugins/servlet/upm/requests?source=header_user">Atlassian Marketplace</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="aui-dropdown2-section">
                             <strong>My JIRA Home</strong>
                             <ul id="set_my_jira_home" class="aui-list-truncate">
+
                                 <li>
-                                    <a id="set_my_jira_home_default" class="aui-dropdown2-radio interactive checked     aui-dropdown2-checked" title="Set my JIRA Home to the Dashboard." href="/jira/secure/UpdateMyJiraHome.jspa?target=com.atlassian.jira.jira-my-home-plugin%3Aset_my_jira_home_dashboard&amp;atl_token=BWP3-NZB2-6EDY-6C7K|75ced5aabd6c72d4cee7a281055ca563390b65a9|lin" resolved="" aria-checked="true" tabindex="-1">Dashboard</a>
+                                    <a id="set_my_jira_home_default" class="aui-dropdown2-radio interactive checked    "
+                                       title="Set my JIRA Home to the Dashboard."
+                                       href="https://ticket.ecx.io/secure/UpdateMyJiraHome.jspa?target=com.atlassian.jira.jira-my-home-plugin%3Aset_my_jira_home_dashboard&atl_token=BJLG-R0NA-B3X6-MPWQ|43e72c921187cbe380533c1a45a7a2b30b199477|lin">Dashboard</a>
                                 </li>
+
                                 <li>
-                                    <a id="greenhopper-my-jira-home-set" class="aui-dropdown2-radio interactive" title="Set my JIRA home page to Boards." href="/jira/secure/UpdateMyJiraHome.jspa?target=com.pyxis.greenhopper.jira%3Agreenhopper-my-jira-home-set-51&amp;atl_token=BWP3-NZB2-6EDY-6C7K|75ced5aabd6c72d4cee7a281055ca563390b65a9|lin" resolved="" aria-checked="false" tabindex="-1">Boards</a>
+                                    <a id="greenhopper-my-jira-home-set" class="aui-dropdown2-radio interactive    "
+                                       title="Set my JIRA Home to Agile."
+                                       href="https://ticket.ecx.io/secure/UpdateMyJiraHome.jspa?target=com.pyxis.greenhopper.jira%3Agreenhopper-my-jira-home-set-51&atl_token=BJLG-R0NA-B3X6-MPWQ|43e72c921187cbe380533c1a45a7a2b30b199477|lin">Agile</a>
                                 </li>
+
                                 <li>
-                                    <a id="set_my_jira_home_issuenav" class="aui-dropdown2-radio interactive" title="Set my JIRA Home to the Issue Navigator." href="/jira/secure/UpdateMyJiraHome.jspa?target=com.atlassian.jira.jira-my-home-plugin%3Aset_my_jira_home_issue&amp;atl_token=BWP3-NZB2-6EDY-6C7K|75ced5aabd6c72d4cee7a281055ca563390b65a9|lin" resolved="" aria-checked="false" tabindex="-1">Issue Navigator</a>
+                                    <a id="set_my_jira_home_issuenav" class="aui-dropdown2-radio interactive    "
+                                       title="Set my JIRA Home to the Issue Navigator."
+                                       href="https://ticket.ecx.io/secure/UpdateMyJiraHome.jspa?target=com.atlassian.jira.jira-my-home-plugin%3Aset_my_jira_home_issue&atl_token=BJLG-R0NA-B3X6-MPWQ|43e72c921187cbe380533c1a45a7a2b30b199477|lin">Issue
+                                        Navigator</a>
+                                </li>
+
+                                <li>
+                                    <a id="set_tempo_my_jira_home_link" class="aui-dropdown2-radio interactive    "
+                                       title="Set my JIRA home to Tempo"
+                                       href="https://ticket.ecx.io/secure/UpdateMyJiraHome.jspa?target=is.origo.jira.tempo-plugin%3Atempo.jira.home.link&atl_token=BJLG-R0NA-B3X6-MPWQ|43e72c921187cbe380533c1a45a7a2b30b199477|lin">Tempo</a>
                                 </li>
                             </ul>
                         </div>
                         <div class="aui-dropdown2-section">
                             <ul id="system" class="aui-list-truncate">
                                 <li>
-                                    <a id="log_out" class="" title="Log out and cancel any automatic login." href="/jira/logout?atl_token=BWP3-NZB2-6EDY-6C7K|75ced5aabd6c72d4cee7a281055ca563390b65a9|lin" tabindex="-1">Log Out</a>
+                                    <a id="log_out" class="" title="Log out and cancel any automatic login."
+                                       href="https://ticket.ecx.io/logout?atl_token=BJLG-R0NA-B3X6-MPWQ|43e72c921187cbe380533c1a45a7a2b30b199477|lin">Log
+                                        Out</a>
                                 </li>
                             </ul>
                         </div>
-                    </div></li>
-            </ul></div></div><!-- .aui-header-inner--></nav>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div><!-- .aui-header-inner-->
+</nav>

@@ -61,7 +61,12 @@ public class CreateProject extends HttpServlet {
         print(req.getRequestURL() + "<br>");
         print(req.getContextPath() + "<br>");
         print(req.getAuthType() + "<br>");
-        print(ComponentAccessor.getIssueManager().getIssueCount() + "issueCount" + br);
+        try 
+        {
+            print(ComponentAccessor.getIssueManager().getIssueCount() + "issueCount" + br);
+        } catch (Exception ex) {
+            ex.printStackTrace(pw);
+        }
         //print("Issue Scrum 3: "+ComponentAccessor.getIssueManager().getIssueObject("DEBUG-3").getDescription());
 
         boolean loggedin = ComponentAccessor.getJiraAuthenticationContext().isLoggedInUser();
@@ -75,8 +80,8 @@ public class CreateProject extends HttpServlet {
         JSONArray epics;
         apiReq = "https://ticket.ecx.io/rest/agile/1.0/";
         String rootstr = executeGetRequestApi("board/10386/epic");
-        print(br + "Epics von Board mit ID = 10386");
         print(apiReq + " apireq" + br);
+        print(br + "Epics von Board mit ID = 10386");
         pw.write(rootstr);
         try {
             root = new JSONObject(rootstr);
@@ -94,7 +99,6 @@ public class CreateProject extends HttpServlet {
 
     private String executeGetRequestApi(String cmd) {
 
-        
         try {
 
             URL url = new URL(apiReq + cmd);
@@ -103,7 +107,7 @@ public class CreateProject extends HttpServlet {
 
             SSLContext.setDefault(ctx);
 
-            String authStr = "username:password";
+            String authStr = "user:password";
             String authEncoded = Base64.encodeBase64String(authStr.getBytes());
 
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
@@ -115,6 +119,7 @@ public class CreateProject extends HttpServlet {
             connection.setHostnameVerifier(new InvalidCertificateHostVerifier());
 
             return readAllLines(connection.getInputStream());
+            //<editor-fold>
 //        String ret = "";
 //        try {
 //            URL url = new URL(apiReq + cmd);
@@ -132,14 +137,15 @@ public class CreateProject extends HttpServlet {
 //            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //        return ret;
+//</editor-fold>
         } catch (MalformedURLException ex) {
-            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("MalformedUrl", ex);
         } catch (NoSuchAlgorithmException ex) {
-            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("NoSuchAlgorirhm", ex);
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("IOException", ex);
         } catch (KeyManagementException ex) {
-            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);
+            log.error("KeyManagementException", ex);
         }
         return "";
 
