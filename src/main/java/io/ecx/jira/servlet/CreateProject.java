@@ -107,7 +107,7 @@ public class CreateProject extends HttpServlet {
 
             SSLContext.setDefault(ctx);
 
-            String authStr = "user:password";
+            String authStr = "";
             String authEncoded = Base64.encodeBase64String(authStr.getBytes());
 
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();

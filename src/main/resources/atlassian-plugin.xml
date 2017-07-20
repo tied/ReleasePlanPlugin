@@ -22,4 +22,8 @@
     <description key="create-project.description">The Create Project Plugin</description>
     <url-pattern>/createproject</url-pattern>
   </servlet>
+  <servlet name="Releaseplanning Servlet" i18n-name-key="releaseplanning-servlet.name" key="releaseplanning-servlet" class="io.ecx.jira.servlet.ReleaseplanningServlet">
+    <description key="releaseplanning-servlet.description">The Releaseplanning Servlet Plugin</description>
+    <url-pattern>/releaseplanning</url-pattern>
+  </servlet>
 </atlassian-plugin>
