@@ -2,12 +2,14 @@ package io.ecx.jira.servlet;
 
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.issue.IssueManager;
+import com.atlassian.jira.template.TemplateSource;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.util.json.JSONArray;
 import com.atlassian.jira.util.json.JSONException;
 import com.atlassian.jira.util.json.JSONObject;
 import com.atlassian.plugin.Plugin;
 import java.io.BufferedReader;
+import java.io.File;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +29,7 @@ import java.util.logging.Level;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
+import javax.swing.plaf.basic.BasicBorders;
 import org.apache.commons.codec.binary.Base64;
 
 public class CreateProject extends HttpServlet {
@@ -42,12 +45,13 @@ public class CreateProject extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         pw = resp.getWriter();
+
         String name = plugin.getName();
 //        importUrl = plugin.getResource("/html/StyleImports.html");
 //        String allLines = readAllLines(importUrl.openStream());
         print("<!DOCTYPE html><html><head><meta name=\"decorator\" content=\"atl.general\"/>");
         print("</head><body>");
-        importUrl = plugin.getResource("/html/Header.html");
+//        importUrl = plugin.getResource("/html/Header.html");
 //        allLines = readAllLines(importUrl.openStream());
 //        print(allLines);
         String uri = req.getRequestURI();
@@ -58,8 +62,7 @@ public class CreateProject extends HttpServlet {
         print(req.getRequestURL() + "<br>");
         print(req.getContextPath() + "<br>");
         print(req.getAuthType() + "<br>");
-        try 
-        {
+        try {
             print(ComponentAccessor.getIssueManager().getIssueCount() + "issueCount" + br);
         } catch (Exception ex) {
             ex.printStackTrace(pw);
