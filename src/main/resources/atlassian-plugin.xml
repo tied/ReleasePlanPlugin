@@ -26,4 +26,12 @@
     <description key="releaseplanning-servlet.description">The Releaseplanning Servlet Plugin</description>
     <url-pattern>/releaseplanning</url-pattern>
   </servlet>
+  <webwork1 key="release-planning-webwork-module" name="Release Planning Webwork Module" i18n-name-key="release-planning-webwork-module.name">
+    <description key="release-planning-webwork-module.description">The Release Planning Webwork Module Plugin</description>
+    <actions>
+      <action name="io.ecx.jira.releaseplanningwebwork.ReleasePlanningWebworkClass" alias="ReleasePlanning">
+        <view name="ReleasePlanningSuccess">/templates/release-planning-webwork-module/releaseplanningwebworkclass/ReleasePlanningSuccess.vm</view>
+      </action>
+    </actions>
+  </webwork1>
 </atlassian-plugin>
