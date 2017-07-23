@@ -50,54 +50,26 @@ public class CreateProject extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         pw = resp.getWriter();
-        pageBuilderService.assembler().resources().requireWebResource("io.ecx.jira.ReleasePlanPlugin:ReleasePlanPlugin-resources");
-        String name = plugin.getName();
-//        importUrl = plugin.getResource("/html/StyleImports.html");
-//        String allLines = readAllLines(importUrl.openStream());
-        print("<!DOCTYPE html><html><head><meta name=\"decorator\" content=\"atl.general\"/>");
-        print("</head><body>");
-//        importUrl = plugin.getResource("/html/Header.html");
-//        allLines = readAllLines(importUrl.openStream());
-//        print(allLines);
-        String uri = req.getRequestURI();
-        StringBuffer url = req.getRequestURL();
-        apiReq = url.toString().replace(uri, "") + req.getContextPath() + "/rest/agile/1.0/";
-        print(apiReq + " apireq" + br);
-        print(req.getRequestURI() + "<br>");
-        print(req.getRequestURL() + "<br>");
-        print(req.getContextPath() + "<br>");
-        print(req.getAuthType() + "<br>");
-        try {
-            print(ComponentAccessor.getIssueManager().getIssueCount() + "issueCount" + br);
-        } catch (Exception ex) {
-            ex.printStackTrace(pw);
-        }
-        //print("Issue Scrum 3: "+ComponentAccessor.getIssueManager().getIssueObject("DEBUG-3").getDescription());
-
-        boolean loggedin = ComponentAccessor.getJiraAuthenticationContext().isLoggedInUser();
-        ApplicationUser user = ComponentAccessor.getJiraAuthenticationContext().getLoggedInUser();
-        IssueManager issueManager = ComponentAccessor.getIssueManager();
-
-        print(loggedin + "<br>" + user.getName());
-        print(ComponentAccessor.getJiraAuthenticationContext().getLocale().getCountry());
-        JSONObject root;
-        JSONArray epics;
         apiReq = "https://ticket.ecx.io/rest/agile/1.0/";
-        String rootstr = executeGetRequestApi("board/10386/epic");
-        print(apiReq + " apireq" + br);
-        print(br + "Epics von Board mit ID = 10386");
-        pw.write(rootstr);
-        try {
-            root = new JSONObject(rootstr);
-            epics = root.getJSONArray("values");
-            for (int i = 0; i < epics.length(); i++) {
-
-            }
-            log.warn("Rootstr");
-        } catch (JSONException ex) {
-            log.error("JSON Fehler", ex);
-        }
-        print("<br><button class=\"aui-button aui-button-primary\">Button</button>");
+        //pageBuilderService.assembler().resources().requireWebResource("io.ecx.jira.ReleasePlanPlugin:ReleasePlanPlugin-resources");
+        String name = plugin.getName();
+        print("<!DOCTYPE html><html><head><meta name=\"decorator\" content=\"atl.general\"/>");
+        print("<title>Create Project - Release Planning Plugin</title>");
+        print("</head><body>");
+        //<editor-fold defaultstate="collapsed" desc="Script">
+        print(    "<script>"
+                + "window.onload=function()"
+                + "{"
+                + "document.getElementById('createProject').classList.add('aui-nav-selected');"
+                + "initInputs();"
+                + "}"
+                + "</script>");
+//</editor-fold>
+        importUrl = plugin.getResource("/html/MainStyle.html");
+        print(ISReader.readAllLines(importUrl.openStream()));
+        importUrl = plugin.getResource("/html/CreateProjectForm.html");
+        print(ISReader.readAllLines(importUrl.openStream()));
+        print("</section>");
         print("</body></html>");
     }
 
@@ -172,29 +144,29 @@ public class CreateProject extends HttpServlet {
 //        }
 //        return lines;
 //    }
+
+
+//    private String readAllLines(InputStream in) {
+//        String allLines = "";
+//        BufferedReader bfr = null;
+//        try {
+//            bfr = new BufferedReader(new InputStreamReader(in));
+//            String lines = "";
+//            while ((lines = bfr.readLine()) != null) {
+//                allLines += lines;
+//            }
+//        } catch (IOException ex) {
+//            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);
+//        } finally {
+//            try {
+//                bfr.close();
+//            } catch (IOException ex) {
+//                java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        return allLines;
+//    }
     //</editor-fold>
-
-    private String readAllLines(InputStream in) {
-        String allLines = "";
-        BufferedReader bfr = null;
-        try {
-            bfr = new BufferedReader(new InputStreamReader(in));
-            String lines = "";
-            while ((lines = bfr.readLine()) != null) {
-                allLines += lines;
-            }
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                bfr.close();
-            } catch (IOException ex) {
-                java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return allLines;
-    }
-
     private void print(String s) {
         pw.println(s);
     }

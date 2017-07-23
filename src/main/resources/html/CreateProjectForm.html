@@ -1,0 +1,39 @@
+<script>
+    function initInputs()
+    {
+        document.getElementById("start-date").onclick = function ()
+        {
+            console.warn("onclick");
+            document.getElementById("start-date").focus();
+        }
+    }
+</script>
+<form action="/jira/plugins/servlet/createproject" method="get" id="createProjectForm" class="aui">
+    <fieldset>
+        <div class="field-group">
+            <label for="project-name">Project<span class="aui-icon icon-required"> required</span></label> 
+            <input class="text" type="text" id="project-name" name="project-name" title="Project Name" maxlength="50">
+        </div>
+        <div class="field-group">
+            <label for="start-date">Project Start<span class="aui-icon icon-required"> required</span></label> 
+            <input class ="text" type="date" id="start-date" title="Start Date" onkeydown="return false" placeholder="dd.mm.yyyy">
+        </div>
+        <div class="field-group">
+            <label for="end-date">Project End<span class="aui-icon icon-required"> required</span></label> 
+            <input class="text" type="date" id="end-date" title="End Date" onkeydown="return false" placeholder="dd.mm.yyyy">
+        </div>
+        <div class="field-group">
+            <label for="sprints">Sprints</label>
+            <input class="text short-field" type="number" min="0" max ="20" id="sprints" title="Sprints"/>
+        </div>
+        <div class="field-group">
+            <label for="sprints">Sprint Duration</label>
+            <input class="text short-field" type="number" min="0" max ="4" id="sprints" title="Sprints"/>
+        </div>
+        <div class="field-group">
+            <label for="sprints">Storypoints</label>
+            <input class="text short-field" type="number" min="0" max ="20" id="sprints" title="Sprints"/>
+        </div>
+
+    </fieldset>
+</form>
