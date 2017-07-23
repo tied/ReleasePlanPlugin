@@ -8,6 +8,7 @@ import com.atlassian.jira.util.json.JSONArray;
 import com.atlassian.jira.util.json.JSONException;
 import com.atlassian.jira.util.json.JSONObject;
 import com.atlassian.plugin.Plugin;
+import com.atlassian.webresource.api.assembler.PageBuilderService;
 import java.io.BufferedReader;
 import java.io.File;
 import org.slf4j.Logger;
@@ -26,6 +27,7 @@ import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
+import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -41,11 +43,14 @@ public class CreateProject extends HttpServlet {
     private final String br = "<br>";
     private String apiReq = "";
 
+    @Inject
+    private PageBuilderService pageBuilderService;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         pw = resp.getWriter();
-
+        pageBuilderService.assembler().resources().requireWebResource("io.ecx.jira.ReleasePlanPlugin:ReleasePlanPlugin-resources");
         String name = plugin.getName();
 //        importUrl = plugin.getResource("/html/StyleImports.html");
 //        String allLines = readAllLines(importUrl.openStream());
@@ -75,7 +80,6 @@ public class CreateProject extends HttpServlet {
 
         print(loggedin + "<br>" + user.getName());
         print(ComponentAccessor.getJiraAuthenticationContext().getLocale().getCountry());
-
         JSONObject root;
         JSONArray epics;
         apiReq = "https://ticket.ecx.io/rest/agile/1.0/";
@@ -195,4 +199,7 @@ public class CreateProject extends HttpServlet {
         pw.println(s);
     }
 
+    public void setPageBuilderService(PageBuilderService pageBuilderService) {
+        this.pageBuilderService = pageBuilderService;
+    }
 }

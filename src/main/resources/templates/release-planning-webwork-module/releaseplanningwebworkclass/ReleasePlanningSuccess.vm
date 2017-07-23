@@ -1,4 +1,11 @@
+<html>
+<head>
+    <title>Planning Page - Release Planning Plugin</title>
+    <meta name="decorator" content="atl.general">
+</head>
+<body>
+<h1>Release Planning Page</h1>
 
-
-<h1>ReleasePlanning</h1>
-<button class="aui-button aui-button-primary">Button</button>
+<p id="paragraph">Now it looks nice :)</p>
+</body>
+</html>
