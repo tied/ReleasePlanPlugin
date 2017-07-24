@@ -1,39 +1,72 @@
-<script>
-    function initInputs()
-    {
-        document.getElementById("start-date").onclick = function ()
-        {
-            console.warn("onclick");
-            document.getElementById("start-date").focus();
-        }
-    }
-</script>
-<form action="/jira/plugins/servlet/createproject" method="get" id="createProjectForm" class="aui">
-    <fieldset>
-        <div class="field-group">
-            <label for="project-name">Project<span class="aui-icon icon-required"> required</span></label> 
-            <input class="text" type="text" id="project-name" name="project-name" title="Project Name" maxlength="50">
-        </div>
-        <div class="field-group">
-            <label for="start-date">Project Start<span class="aui-icon icon-required"> required</span></label> 
-            <input class ="text" type="date" id="start-date" title="Start Date" onkeydown="return false" placeholder="dd.mm.yyyy">
-        </div>
-        <div class="field-group">
-            <label for="end-date">Project End<span class="aui-icon icon-required"> required</span></label> 
-            <input class="text" type="date" id="end-date" title="End Date" onkeydown="return false" placeholder="dd.mm.yyyy">
-        </div>
-        <div class="field-group">
-            <label for="sprints">Sprints</label>
-            <input class="text short-field" type="number" min="0" max ="20" id="sprints" title="Sprints"/>
-        </div>
-        <div class="field-group">
-            <label for="sprints">Sprint Duration</label>
-            <input class="text short-field" type="number" min="0" max ="4" id="sprints" title="Sprints"/>
-        </div>
-        <div class="field-group">
-            <label for="sprints">Storypoints</label>
-            <input class="text short-field" type="number" min="0" max ="20" id="sprints" title="Sprints"/>
-        </div>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-    </fieldset>
-</form>
+<script>
+    $(function () {
+        $("#start-date").datepicker();
+        $("#end-date").datepicker();
+        $("#start-date").datepicker("option", "dateFormat", "dd.mm.yy");
+        $("#end-date").datepicker("option", "dateFormat", "dd.mm.yy");
+
+        $("#create-user").button().on("click", function () {
+
+            $("#dialog").dialog();
+
+            console.warn("click");
+            var blanket = document.getElementById("blanket");
+            blanket.removeAttribute("hidden");
+        });
+
+    });
+
+    function cancelClicked()
+    {
+        console.warn("click");
+        $("#dialog").dialog("close");
+        var blanket = document.getElementById("blanket");
+        blanket.setAttribute("hidden",null);
+    }
+    
+</script>
+<div id="blanket" class="ui-widget-overlay ui-front" tabindex="0" hidden></div>
+<div id="dialog" title="CreateProject">
+    <form action="/jira/plugins/servlet/createproject" method="get" id="createProjectForm" class="aui">
+        <fieldset>
+            <div class="field-group">
+                <label for="project-name">Project<span class="aui-icon icon-required"> required</span></label>
+                <input class="text" type="text" id="project-name" name="ProjectName" title="Project Name" maxlength="50">
+            </div>
+            <div class="field-group">
+                <label for="start-date">Project Start<span class="aui-icon icon-required"> required</span></label>
+                <input class="text" type="text" id="start-date" title="Start Date" onkeydown="return false" placeholder="DD.MM.YYYY" name="StartDate">
+            </div>
+            <div class="field-group">
+                <label for="end-date">Project End<span class="aui-icon icon-required"> required</span></label>
+                <input class="text" type="text" id="end-date" title="End Date" onkeydown="return false" placeholder="DD.MM.YYYY" name="EndDate">
+            </div>
+            <div class="field-group">
+                <label for="sprints">Sprints</label>
+                <input class="text short-field" type="number" min="1" max ="100" id="sprints" name="Sprints" title="Sprints"/>
+            </div>
+            <div class="field-group">
+                <label for="sprint-duration">Sprint Duration</label>
+                <select id="sprint-duration" name="SprintDuration" class="select">
+                    <option value="1">1 week</option>
+                    <option value="2">2 weeks</option>
+                    <option value="3">3 weeks</option>
+                    <option value="4">4 weeks</option>
+                    <option value="5">5 weeks</option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label for="story-points">Storypoints</label>
+                <input class="text short-field" type="number" min="0" max ="20" id="story-points" title="Sprints" name="StoryPoints"/>
+            </div>
+        </fieldset>
+        <hr/>
+        <a id="cancel" class="cancel" style="float: right" onclick="cancelClicked()">Cancel</a>
+        <input type="submit" class="aui-button aui-button-primary" value="Create" style="float: right"/>
+    </form>
+</div>
+<button id="create-user">Create new user</button>

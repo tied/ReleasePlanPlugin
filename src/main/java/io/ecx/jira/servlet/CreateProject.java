@@ -61,7 +61,7 @@ public class CreateProject extends HttpServlet {
                 + "window.onload=function()"
                 + "{"
                 + "document.getElementById('createProject').classList.add('aui-nav-selected');"
-                + "initInputs();"
+               
                 + "}"
                 + "</script>");
 //</editor-fold>
@@ -94,7 +94,7 @@ public class CreateProject extends HttpServlet {
 
             connection.setHostnameVerifier(new InvalidCertificateHostVerifier());
 
-            return readAllLines(connection.getInputStream());
+            return ISReader.readAllLines(connection.getInputStream());
             //<editor-fold>
 //        String ret = "";
 //        try {
