@@ -1,33 +1,45 @@
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 <script>
     $(function () {
-        $("#start-date").datepicker();
-        $("#end-date").datepicker();
-        $("#start-date").datepicker("option", "dateFormat", "dd.mm.yy");
-        $("#end-date").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#start-date").datepicker();
+    $("#end-date").datepicker();
+    $("#start-date").datepicker("option", "dateFormat", "dd.mm.yy");
+    $("#end-date").datepicker("option", "dateFormat", "dd.mm.yy");
+    var dialog = document.getElementById("dialog");
+    dialog.setAttribute("hidden",null);
 
-        $("#create-user").button().on("click", function () {
+    $("#create-user").button().on("click", function () {
 
-            $("#dialog").dialog();
+        $("#dialog").dialog();
 
-            console.warn("click");
-            var blanket = document.getElementById("blanket");
-            blanket.removeAttribute("hidden");
-        });
-
+        console.warn("click");
+        var blanket = document.getElementById("blanket");
+        blanket.removeAttribute("hidden");
     });
 
-    function cancelClicked()
-    {
-        console.warn("click");
-        $("#dialog").dialog("close");
-        var blanket = document.getElementById("blanket");
-        blanket.setAttribute("hidden",null);
-    }
-    
+});
+
+function cancelClicked()
+{
+    console.warn("click");
+    $("#dialog").dialog("close");
+    var blanket = document.getElementById("blanket");
+    blanket.setAttribute("hidden", null);
+}
+
+function createProject()
+{
+    $("#dialog").dialog();
+    var dialog = document.getElementById("dialog");
+    dialog.removeAttribute("hidden");
+    console.warn("click");
+    var blanket = document.getElementById("blanket");
+    blanket.removeAttribute("hidden");
+}
+
 </script>
 <div id="blanket" class="ui-widget-overlay ui-front" tabindex="0" hidden></div>
 <div id="dialog" title="CreateProject">
@@ -69,4 +81,4 @@
         <input type="submit" class="aui-button aui-button-primary" value="Create" style="float: right"/>
     </form>
 </div>
-<button id="create-user">Create new user</button>
+-->

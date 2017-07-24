@@ -1,46 +1,129 @@
 
-        <div class="generalAdminHeading aui-page-header">
-            <div class="aui-page-header-inner">
-                <div class="aui-page-header-main">
-                    <h1>Release Planning</h1>
-                </div>
+<div class="generalAdminHeading aui-page-header">
+    <div class="aui-page-header-inner">
+        <div class="aui-page-header-main">
+            <h1>Release Planning</h1>
+        </div>
+    </div>
+</div>
+<div class="aui-page-panel-nav">
+    <!-- Vertical Nav is usually placed inside .aui-page-panel-nav. Refer to content layout documentation for details. -->
+    <nav class="aui-navgroup aui-navgroup-vertical">
+        <div class="aui-navgroup-inner">
+            <ul class="aui-nav">
+                <li class="aui-nav-selected"><a href="http://example.com/">Usage</a></li>
+            </ul>
+            <div class="aui-nav-heading">
+                <strong>Planing</strong>
             </div>
+            <ul class="aui-nav">
+                <li id="createProject"><a onclick="createProject()">Create Project</a></li>
+                <li><a href="http://example.com/">Groups</a></li>
+                <li><a href="http://example.com/">Global permissions</a></li>
+                <li><a href="http://example.com/">Authentication</a></li>
+                <li><a href="http://example.com/">Avatars</a></li>
+                <li><a href="http://example.com/">User directories</a></li>
+            </ul>
+            <div class="aui-nav-heading"><strong>Settings</strong></div>
+            <ul class="aui-nav">
+                <li><a href="http://example.com/">Server settings</a></li>
+                <li><a href="http://example.com/">Database</a></li>
+                <li><a href="http://example.com/">Application links</a></li>
+                <li><a href="http://example.com/">Mail server</a></li>
+                <li><a href="http://example.com/">Licensing</a></li>
+            </ul>
+            <div class="aui-nav-heading"><strong>Support</strong></div>
+            <ul class="aui-nav">
+                <li><a href="http://example.com/">Atlassian Support Tools</a></li>
+                <li><a href="http://example.com/">Logging and Profiling</a></li>
+            </ul>
         </div>
-        <div class="aui-page-panel-nav">
-            <!-- Vertical Nav is usually placed inside .aui-page-panel-nav. Refer to content layout documentation for details. -->
-            <nav class="aui-navgroup aui-navgroup-vertical">
-                <div class="aui-navgroup-inner">
-                    <ul class="aui-nav">
-                        <li class="aui-nav-selected"><a href="http://example.com/">Usage</a></li>
-                    </ul>
-                    <div class="aui-nav-heading">
-                        <strong>Planing</strong>
-                    </div>
-                    <ul class="aui-nav">
-                        <li id="createProject"><a href="/jira/plugins/servlet/createproject">Create Project</a></li>
-                        <li><a href="http://example.com/">Groups</a></li>
-                        <li><a href="http://example.com/">Global permissions</a></li>
-                        <li><a href="http://example.com/">Authentication</a></li>
-                        <li><a href="http://example.com/">Avatars</a></li>
-                        <li><a href="http://example.com/">User directories</a></li>
-                    </ul>
-                    <div class="aui-nav-heading"><strong>Settings</strong></div>
-                    <ul class="aui-nav">
-                        <li><a href="http://example.com/">Server settings</a></li>
-                        <li><a href="http://example.com/">Database</a></li>
-                        <li><a href="http://example.com/">Application links</a></li>
-                        <li><a href="http://example.com/">Mail server</a></li>
-                        <li><a href="http://example.com/">Licensing</a></li>
-                    </ul>
-                    <div class="aui-nav-heading"><strong>Support</strong></div>
-                    <ul class="aui-nav">
-                        <li><a href="http://example.com/">Atlassian Support Tools</a></li>
-                        <li><a href="http://example.com/">Logging and Profiling</a></li>
-                    </ul>
-                </div>
-            </nav>
+    </nav>
 
-            <!-- Vertical Nav is usually placed inside aui-page-panel-nav -->
-        </div>
-        <section class="aui-page-panel-content">
-        
+    <!-- Vertical Nav is usually placed inside aui-page-panel-nav -->
+</div>
+<section class="aui-page-panel-content">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script>
+                    $(function () {
+                        $("#start-date").datepicker();
+                        $("#end-date").datepicker();
+                        $("#start-date").datepicker("option", "dateFormat", "dd.mm.yy");
+                        $("#end-date").datepicker("option", "dateFormat", "dd.mm.yy");
+                        var dialog = document.getElementById("dialog");
+                        dialog.setAttribute("hidden", null);
+
+                        $("#create-user").button().on("click", function () {
+
+                            $("#dialog").dialog();
+
+                            console.warn("click");
+                            var blanket = document.getElementById("blanket");
+                            blanket.removeAttribute("hidden");
+                        });
+
+                    });
+
+                    function cancelClicked()
+                    {
+                        console.warn("click");
+                        $("#dialog").dialog("close");
+                        var blanket = document.getElementById("blanket");
+                        blanket.setAttribute("hidden", null);
+                    }
+
+                    function createProject()
+                    {
+                        $("#dialog").dialog();
+                        var dialog = document.getElementById("dialog");
+                        dialog.removeAttribute("hidden");
+                        console.warn("click");
+                        var blanket = document.getElementById("blanket");
+                        blanket.removeAttribute("hidden");
+                    }
+
+    </script>
+    <div id="blanket" class="ui-widget-overlay ui-front" tabindex="0" hidden></div>
+    <div id="dialog" title="CreateProject">
+        <form action="/jira/plugins/servlet/createproject" method="get" id="createProjectForm" class="aui">
+            <fieldset>
+                <div class="field-group">
+                    <label for="project-name">Project<span class="aui-icon icon-required"> required</span></label>
+                    <input class="text" type="text" id="project-name" name="ProjectName" title="Project Name" maxlength="50">
+                </div>
+                <div class="field-group">
+                    <label for="start-date">Project Start<span class="aui-icon icon-required"> required</span></label>
+                    <input class="text" type="text" id="start-date" title="Start Date" onkeydown="return false" placeholder="DD.MM.YYYY" name="StartDate">
+                </div>
+                <div class="field-group">
+                    <label for="end-date">Project End<span class="aui-icon icon-required"> required</span></label>
+                    <input class="text" type="text" id="end-date" title="End Date" onkeydown="return false" placeholder="DD.MM.YYYY" name="EndDate">
+                </div>
+                <div class="field-group">
+                    <label for="sprints">Sprints</label>
+                    <input class="text short-field" type="number" min="1" max ="100" id="sprints" name="Sprints" title="Sprints"/>
+                </div>
+                <div class="field-group">
+                    <label for="sprint-duration">Sprint Duration</label>
+                    <select id="sprint-duration" name="SprintDuration" class="select">
+                        <option value="1">1 week</option>
+                        <option value="2">2 weeks</option>
+                        <option value="3">3 weeks</option>
+                        <option value="4">4 weeks</option>
+                        <option value="5">5 weeks</option>
+                    </select>
+                </div>
+                <div class="field-group">
+                    <label for="story-points">Storypoints</label>
+                    <input class="text short-field" type="number" min="0" max ="20" id="story-points" title="Sprints" name="StoryPoints"/>
+                </div>
+            </fieldset>
+            <hr/>
+            <a id="cancel" class="cancel" style="float: right" onclick="cancelClicked()">Cancel</a>
+            <input type="submit" class="aui-button aui-button-primary" value="Create" style="float: right"/>
+        </form>
+    </div>
