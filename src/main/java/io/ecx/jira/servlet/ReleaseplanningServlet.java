@@ -27,12 +27,10 @@ public class ReleaseplanningServlet extends HttpServlet{
     {
         resp.setContentType("text/html");
         pw = resp.getWriter();
-        importUrl = plugin.getResource("/html/dateiname.html");
+        importUrl = plugin.getResource("/html/MainStyle.html");
         String allLines = ISReader.readAllLines(importUrl.openStream());
         pw.print(allLines);
         
-       
-
     }
 
 }

@@ -2,18 +2,11 @@ package io.ecx.jira.servlet;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.component.ComponentAccessor;
-import com.atlassian.jira.issue.IssueManager;
-import com.atlassian.jira.template.TemplateSource;
-import com.atlassian.jira.user.ApplicationUser;
-import com.atlassian.jira.util.json.JSONArray;
-import com.atlassian.jira.util.json.JSONException;
-import com.atlassian.jira.util.json.JSONObject;
 import com.atlassian.plugin.Plugin;
 import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.webresource.api.assembler.PageBuilderService;
 import io.ecx.jira.ao.ReleasePlanProject;
-import java.io.BufferedReader;
-import java.io.File;
+import java.beans.XMLEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,20 +15,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
-import javax.swing.plaf.basic.BasicBorders;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import org.apache.commons.codec.binary.Base64;
 
 public class CreateProject extends HttpServlet
@@ -59,6 +55,44 @@ public class CreateProject extends HttpServlet
     }
 
     @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    {
+        pw = resp.getWriter();
+        final String name = req.getParameter("ProjectName");
+        final int sprints = Integer.parseInt(req.getParameter("Sprints"));
+        final int sprintDuration = Integer.parseInt(req.getParameter("SprintDuration"));
+        final int storypoints = Integer.parseInt(req.getParameter("StoryPoints"));
+        final String sD = req.getParameter("StartDate");
+        final String eD = req.getParameter("EndDate");
+
+        String[] split = sD.split("\\.");
+        GregorianCalendar cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1]), Integer.parseInt(split[0]));
+        final Date startDate = cal.getTime();
+        split = eD.split("\\.");
+        cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1]), Integer.parseInt(split[0]));
+        final Date endDate = cal.getTime();
+
+        activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()
+        {
+            public ReleasePlanProject doInTransaction()
+            {
+                final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class);
+                proj.setName(name);
+                proj.setJiraProjectId(null);
+                proj.setJiraProjectSelf("");
+                proj.setStartDate(startDate);
+                proj.setEndDate(endDate);
+                proj.setSprints(sprints);
+                proj.setStorypoints(storypoints);
+                proj.setSprintDuration(sprintDuration);
+                proj.save();
+                return proj;
+            }
+        });
+        pw.write("Done");
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
         resp.setContentType("text/html");
@@ -66,40 +100,20 @@ public class CreateProject extends HttpServlet
         apiReq = "https://ticket.ecx.io/rest/agile/1.0/";
         //pageBuilderService.assembler().resources().requireWebResource("io.ecx.jira.ReleasePlanPlugin:ReleasePlanPlugin-resources");
         String name = plugin.getName();
-
-        activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()
-        {
-            public ReleasePlanProject doInTransaction()
-            {
-                final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class);
-                proj.setName("Test Project");
-                proj.setJiraProjectId(2);
-                proj.setJiraProjectSelf("Self2");
-                proj.setStartDate(new Date());
-                Date end = new Date();
-                end.setDate(28);
-                proj.setEndDate(end);
-                proj.setSprints(4);
-                proj.setStorypoints(80);
-                proj.setSprintDuration(20);
-                proj.save();
-                return proj;
-            }
-
-        });
-
+        
         activeObjects.executeInTransaction(new TransactionCallback<Void>()
         {
             public Void doInTransaction()
             {
-                
+
                 for (ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
                 {
-                    pw.println(proj.getName() + " " + proj.getJiraProjectId());
+                    pw.print("Name: "+proj.getName()+" JiraProjectId: "+proj.getJiraProjectId()+" Sprints: "+proj.getSprints()+ " SprintDuration: "+proj.getSprintDuration()+" StartDate: "+proj.getStartDate()+" EndDate: "+proj.getEndDate()+" Storypoints: "+proj.getStorypoints()+" JiraProjectSelf: "+proj.getJiraProjectSelf()+br);
                 }
                 return null;
             }
         });
+
     }
 
     private String executeGetRequestApi(String cmd)
@@ -204,11 +218,6 @@ public class CreateProject extends HttpServlet
 //        return allLines;
 //    }
     //</editor-fold>
-    private void print(String s)
-    {
-        pw.println(s);
-    }
-
     public void setPageBuilderService(PageBuilderService pageBuilderService)
     {
         this.pageBuilderService = pageBuilderService;
