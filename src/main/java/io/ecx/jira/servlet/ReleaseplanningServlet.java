@@ -27,12 +27,8 @@ public class ReleaseplanningServlet extends HttpServlet{
     {
         resp.setContentType("text/html");
         pw = resp.getWriter();
-        pw.write("<html><head>");
-        importUrl = plugin.getResource("/html/StyleImports.html");
+        importUrl = plugin.getResource("/html/dateiname.html");
         String allLines = ISReader.readAllLines(importUrl.openStream());
-        pw.print(allLines+"</head><body>");
-        importUrl = plugin.getResource("/html/Header.html");
-        allLines = ISReader.readAllLines(importUrl.openStream());
         pw.print(allLines);
         
        

@@ -66,16 +66,7 @@ public class CreateProject extends HttpServlet
         apiReq = "https://ticket.ecx.io/rest/agile/1.0/";
         //pageBuilderService.assembler().resources().requireWebResource("io.ecx.jira.ReleasePlanPlugin:ReleasePlanPlugin-resources");
         String name = plugin.getName();
-        print("<!DOCTYPE html><html><head><meta name=\"decorator\" content=\"atl.general\"/>");
-        print("<title>Create Project - Release Planning Plugin</title>");
-        print("</head><body>");
 
-//        importUrl = plugin.getResource("/html/MainStyle.html");
-//        print(ISReader.readAllLines(importUrl.openStream()));
-//        importUrl = plugin.getResource("/html/CreateProjectForm.html");
-//        print(ISReader.readAllLines(importUrl.openStream()));
-//        print("</section>");
-        
         activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()
         {
             public ReleasePlanProject doInTransaction()
@@ -101,14 +92,14 @@ public class CreateProject extends HttpServlet
         {
             public Void doInTransaction()
             {
-                for(ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
+                
+                for (ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
                 {
-                    pw.println("<li>"+ proj.getName() +" "+ proj.getJiraProjectId()+"</li>");
+                    pw.println(proj.getName() + " " + proj.getJiraProjectId());
                 }
                 return null;
             }
         });
-        print("</body></html>");
     }
 
     private String executeGetRequestApi(String cmd)
