@@ -1,5 +1,6 @@
 package io.ecx.jira.servlet;
 
+import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.component.ComponentAccessor;
 import com.atlassian.jira.issue.IssueManager;
 import com.atlassian.jira.template.TemplateSource;
@@ -8,7 +9,9 @@ import com.atlassian.jira.util.json.JSONArray;
 import com.atlassian.jira.util.json.JSONException;
 import com.atlassian.jira.util.json.JSONObject;
 import com.atlassian.plugin.Plugin;
+import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.webresource.api.assembler.PageBuilderService;
+import io.ecx.jira.ao.ReleasePlanProject;
 import java.io.BufferedReader;
 import java.io.File;
 import org.slf4j.Logger;
@@ -26,6 +29,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 import java.util.logging.Level;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
@@ -34,7 +38,8 @@ import javax.net.ssl.TrustManager;
 import javax.swing.plaf.basic.BasicBorders;
 import org.apache.commons.codec.binary.Base64;
 
-public class CreateProject extends HttpServlet {
+public class CreateProject extends HttpServlet
+{
 
     private static final Logger log = LoggerFactory.getLogger(CreateProject.class);
     private URL importUrl;
@@ -42,12 +47,20 @@ public class CreateProject extends HttpServlet {
     private PrintWriter pw;
     private final String br = "<br>";
     private String apiReq = "";
+    private ActiveObjects activeObjects;
 
     @Inject
     private PageBuilderService pageBuilderService;
 
+    @Inject
+    public CreateProject(ActiveObjects activeObjects)
+    {
+        this.activeObjects = activeObjects;
+    }
+
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
+    {
         resp.setContentType("text/html");
         pw = resp.getWriter();
         apiReq = "https://ticket.ecx.io/rest/agile/1.0/";
@@ -56,30 +69,60 @@ public class CreateProject extends HttpServlet {
         print("<!DOCTYPE html><html><head><meta name=\"decorator\" content=\"atl.general\"/>");
         print("<title>Create Project - Release Planning Plugin</title>");
         print("</head><body>");
-        //<editor-fold defaultstate="collapsed" desc="Script">
-        print(    "<script>"
-                + "window.onload=function()"
-                + "{"
-                + "document.getElementById('createProject').classList.add('aui-nav-selected');"
-               
-                + "}"
-                + "</script>");
-//</editor-fold>
-        importUrl = plugin.getResource("/html/MainStyle.html");
-        print(ISReader.readAllLines(importUrl.openStream()));
-        importUrl = plugin.getResource("/html/CreateProjectForm.html");
-        print(ISReader.readAllLines(importUrl.openStream()));
-        print("</section>");
+
+//        importUrl = plugin.getResource("/html/MainStyle.html");
+//        print(ISReader.readAllLines(importUrl.openStream()));
+//        importUrl = plugin.getResource("/html/CreateProjectForm.html");
+//        print(ISReader.readAllLines(importUrl.openStream()));
+//        print("</section>");
+        
+        activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()
+        {
+            public ReleasePlanProject doInTransaction()
+            {
+                final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class);
+                proj.setName("Test Project");
+                proj.setJiraProjectId(2);
+                proj.setJiraProjectSelf("Self2");
+                proj.setStartDate(new Date());
+                Date end = new Date();
+                end.setDate(28);
+                proj.setEndDate(end);
+                proj.setSprints(4);
+                proj.setStorypoints(80);
+                proj.setSprintDuration(20);
+                proj.save();
+                return proj;
+            }
+
+        });
+
+        activeObjects.executeInTransaction(new TransactionCallback<Void>()
+        {
+            public Void doInTransaction()
+            {
+                for(ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
+                {
+                    pw.println("<li>"+ proj.getName() +" "+ proj.getJiraProjectId()+"</li>");
+                }
+                return null;
+            }
+        });
         print("</body></html>");
     }
 
-    private String executeGetRequestApi(String cmd) {
+    private String executeGetRequestApi(String cmd)
+    {
 
-        try {
+        try
+        {
 
             URL url = new URL(apiReq + cmd);
             SSLContext ctx = SSLContext.getInstance("TLS");
-            ctx.init(null, new TrustManager[]{new InvalidCertificateTrustManager()}, null);
+            ctx.init(null, new TrustManager[]
+            {
+                new InvalidCertificateTrustManager()
+            }, null);
 
             SSLContext.setDefault(ctx);
 
@@ -114,13 +157,17 @@ public class CreateProject extends HttpServlet {
 //        }
 //        return ret;
 //</editor-fold>
-        } catch (MalformedURLException ex) {
+        } catch (MalformedURLException ex)
+        {
             log.error("MalformedUrl", ex);
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (NoSuchAlgorithmException ex)
+        {
             log.error("NoSuchAlgorirhm", ex);
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             log.error("IOException", ex);
-        } catch (KeyManagementException ex) {
+        } catch (KeyManagementException ex)
+        {
             log.error("KeyManagementException", ex);
         }
         return "";
@@ -145,7 +192,6 @@ public class CreateProject extends HttpServlet {
 //        return lines;
 //    }
 
-
 //    private String readAllLines(InputStream in) {
 //        String allLines = "";
 //        BufferedReader bfr = null;
@@ -167,11 +213,13 @@ public class CreateProject extends HttpServlet {
 //        return allLines;
 //    }
     //</editor-fold>
-    private void print(String s) {
+    private void print(String s)
+    {
         pw.println(s);
     }
 
-    public void setPageBuilderService(PageBuilderService pageBuilderService) {
+    public void setPageBuilderService(PageBuilderService pageBuilderService)
+    {
         this.pageBuilderService = pageBuilderService;
     }
 }

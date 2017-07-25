@@ -1,5 +1,6 @@
 package io.ecx.jira.ReleasePlanPlugin.impl;
 
+import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.plugin.spring.scanner.annotation.export.ExportAsService;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.ApplicationProperties;
@@ -17,6 +18,8 @@ public class MyPluginComponentImpl implements MyPluginComponent
     private final ApplicationProperties applicationProperties;
     @ComponentImport
     private PageBuilderService pageBuilderService;
+    @ComponentImport
+    private ActiveObjects activeObjects;
 
     @Inject
     public MyPluginComponentImpl(final ApplicationProperties applicationProperties)
