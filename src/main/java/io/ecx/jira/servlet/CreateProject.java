@@ -64,6 +64,7 @@ public class CreateProject extends HttpServlet
         final int storypoints = Integer.parseInt(req.getParameter("StoryPoints"));
         final String sD = req.getParameter("StartDate");
         final String eD = req.getParameter("EndDate");
+        final int jiraProjectId = Integer.parseInt(req.getParameter("Project"));
 
         String[] split = sD.split("\\.");
         GregorianCalendar cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1]), Integer.parseInt(split[0]));
@@ -78,13 +79,13 @@ public class CreateProject extends HttpServlet
             {
                 final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class);
                 proj.setName(name);
-                proj.setJiraProjectId(null);
-                proj.setJiraProjectSelf("");
+                proj.setJiraProjectId(jiraProjectId);
                 proj.setStartDate(startDate);
                 proj.setEndDate(endDate);
                 proj.setSprints(sprints);
                 proj.setStorypoints(storypoints);
                 proj.setSprintDuration(sprintDuration);
+                proj.setProjectFinished(false);
                 proj.save();
                 return proj;
             }
@@ -108,7 +109,7 @@ public class CreateProject extends HttpServlet
 
                 for (ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
                 {
-                    pw.print("Name: "+proj.getName()+" JiraProjectId: "+proj.getJiraProjectId()+" Sprints: "+proj.getSprints()+ " SprintDuration: "+proj.getSprintDuration()+" StartDate: "+proj.getStartDate()+" EndDate: "+proj.getEndDate()+" Storypoints: "+proj.getStorypoints()+" JiraProjectSelf: "+proj.getJiraProjectSelf()+br);
+                    pw.print("Name: "+proj.getName()+" JiraProjectId: "+proj.getJiraProjectId()+" Sprints: "+proj.getSprints()+ " SprintDuration: "+proj.getSprintDuration()+" StartDate: "+proj.getStartDate()+" EndDate: "+proj.getEndDate()+" Storypoints: "+proj.getStorypoints()+"Project Finished: "+proj.getProjectFinished()+br);
                 }
                 return null;
             }

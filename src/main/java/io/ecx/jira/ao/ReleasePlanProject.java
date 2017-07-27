@@ -37,9 +37,6 @@ public interface ReleasePlanProject extends Entity
     Integer getJiraProjectId();
     void setJiraProjectId(Integer jiraProjectId);
     
-    String getJiraProjectSelf();
-    void setJiraProjectSelf(String jiraProjectSelf);
-    
     boolean getProjectFinished();
     void setProjectFinished(boolean finished);
     
