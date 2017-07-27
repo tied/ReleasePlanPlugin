@@ -142,7 +142,7 @@ public class CreateProject extends HttpServlet
 
             connection.setHostnameVerifier(new InvalidCertificateHostVerifier());
 
-            return ISReader.readAllLines(connection.getInputStream());
+            return SharedMethods.readAllLines(connection.getInputStream());
             //<editor-fold>
 //        String ret = "";
 //        try {
