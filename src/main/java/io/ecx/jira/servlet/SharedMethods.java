@@ -36,7 +36,7 @@ public class SharedMethods {
             bfr = new BufferedReader(new InputStreamReader(in));
             String lines = "";
             while ((lines = bfr.readLine()) != null) {
-                allLines += lines;
+                allLines += lines+"\r\n";
             }
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(CreateProject.class.getName()).log(Level.SEVERE, null, ex);

@@ -48,23 +48,20 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+    <style>
+        .ui-datepicker-current { display: none; }
+    </style>
     <script>
                     $(function () {
-                        $("#start-date").datepicker();
-                        $("#end-date").datepicker();
-                        $("#start-date").datepicker("option", "dateFormat", "dd.mm.yy");
-                        $("#end-date").datepicker("option", "dateFormat", "dd.mm.yy");
+                        //$("#start-date").datepicker();
+                        //$("#end-date").datepicker();
+                        //$("#start-date").datepicker("option", "dateFormat", "dd.mm.yy");
+                        //$("#end-date").datepicker("option", "dateFormat", "dd.mm.yy");
                         var dialog = document.getElementById("dialog");
                         dialog.setAttribute("hidden", null);
 
-                        $("#create-user").button().on("click", function () {
-
-                            $("#dialog").dialog();
-
-                            console.warn("click");
-                            var blanket = document.getElementById("blanket");
-                            blanket.removeAttribute("hidden");
-                        });
+                        
+                        datePickers();
 
                     });
 
@@ -84,6 +81,37 @@
                         console.warn("click");
                         var blanket = document.getElementById("blanket");
                         blanket.removeAttribute("hidden");
+                    }
+
+                    function datePickers()
+                    {
+                        $("#start-date").datepicker({
+                            showOn: 'focus',
+                            showButtonPanel: true,
+                            closeText: 'Clear', // Text to show for "close" button
+                            dateFormat: 'dd.mm.yy',
+                            onClose: function () {
+                                var event = arguments.callee.caller.caller.arguments[0];
+                                // If "Clear" gets clicked, then really clear it
+                                if ($(event.delegateTarget).hasClass('ui-datepicker-close')) {
+                                    $(this).val('');
+                                }
+                            }
+                        });
+
+                        $("#end-date").datepicker({
+                            showOn: 'focus',
+                            showButtonPanel: true,
+                            closeText: 'Clear', // Text to show for "close" button
+                            dateFormat: 'dd.mm.yy',
+                            onClose: function () {
+                                var event = arguments.callee.caller.caller.arguments[0];
+                                // If "Clear" gets clicked, then really clear it
+                                if ($(event.delegateTarget).hasClass('ui-datepicker-close')) {
+                                    $(this).val('');
+                                }
+                            }
+                        });
                     }
 
     </script>
