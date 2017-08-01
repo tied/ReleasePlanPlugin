@@ -1,0 +1,28 @@
+.rp_table {
+    border: 2px solid black;
+    border-collapse: collapse;
+    width: 100%;
+    column-width: 100px;
+}
+.rp_tr_1 {
+    border: 2px solid black;
+    border-collapse: collapse;
+    height:auto;
+}
+.rp_tr_2 {
+    border: 2px solid black;
+    border-collapse: collapse;
+    height: 120px;
+}
+.rp_tr_3 {
+    border: 2px solid black;
+    border-collapse: collapse;
+    height: 30px;
+}
+.rp_table_div {
+}
+.rp_table tr, .rp_table td {
+    border: 2px solid black;
+    border-collapse: collapse;
+    width: 100px;
+}

@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
-    <plugin-info>
-        <description>${project.description}</description>
-        <version>${project.version}</version>
-        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
-        <param name="plugin-icon">images/pluginIcon.png</param>
-        <param name="plugin-logo">images/pluginLogo.png</param>
-    </plugin-info>
-    <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="ReleasePlanPlugin"/>
-    <!-- add our web resources -->
-    <web-resource key="ReleasePlanPlugin-resources" name="ReleasePlanPlugin Web Resources">
-        <dependency>com.atlassian.auiplugin:ajs</dependency>
-        <resource type="download" name="ReleasePlanPlugin.css" location="/css/ReleasePlanPlugin.css"/>
-        <resource type="download" name="ReleasePlanPlugin.js" location="/js/ReleasePlanPlugin.js"/>
-        <resource type="download" name="ReleasePlanningJSController.js" location="/js/ReleasePlanningJSController.js"/>
-        <resource type="download" name="images/" location="/images"/>
-        <context>ReleasePlanPlugin</context>
-    </web-resource>
-    <servlet name="Create Project" i18n-name-key="create-project.name" key="create-project" class="io.ecx.jira.servlet.CreateProject">
-        <description key="create-project.description">The Create Project Plugin</description>
-        <url-pattern>/createproject</url-pattern>
-    </servlet>
-    <servlet name="Releaseplanning Servlet" i18n-name-key="releaseplanning-servlet.name" key="releaseplanning-servlet" class="io.ecx.jira.servlet.ReleaseplanningServlet">
-        <description key="releaseplanning-servlet.description">The Releaseplanning Servlet Plugin</description>
-        <url-pattern>/releaseplanning</url-pattern>
-    </servlet>
-    <webwork1 key="release-planning-webwork-module" name="Release Planning Webwork Module" i18n-name-key="release-planning-webwork-module.name">
-        <description key="release-planning-webwork-module.description">The Release Planning Webwork Module Plugin</description>
-        <actions>
-            <action name="io.ecx.jira.releaseplanningwebwork.ReleasePlanningWebworkClass" alias="ReleasePlanning">
-                <view name="ReleasePlanningSuccess">/templates/release-planning-webwork-module/releaseplanningwebworkclass/ReleasePlanningSuccess.vm</view>
-            </action>
-        </actions>
-    </webwork1>
-    <ao key="ao-module">
-        <description>Active Objects Module for plugin-project data</description>
-        <entity>io.ecx.jira.ao.ReleasePlanProject</entity>
-    </ao>
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="ReleasePlanPlugin"/>
+  <!-- add our web resources -->
+  <web-resource key="ReleasePlanPlugin-resources" name="ReleasePlanPlugin Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="ReleasePlanPlugin.css" location="/css/ReleasePlanPlugin.css"/>
+    <resource type="download" name="ReleasePlanPlugin.js" location="/js/ReleasePlanPlugin.js"/>
+    <resource type="download" name="ReleasePlanningJSController.js" location="/js/ReleasePlanningJSController.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>ReleasePlanPlugin</context>
+  </web-resource>
+  <servlet name="Create Project" i18n-name-key="create-project.name" key="create-project" class="io.ecx.jira.servlet.CreateProject">
+    <description key="create-project.description">The Create Project Plugin</description>
+    <url-pattern>/createproject</url-pattern>
+  </servlet>
+  <servlet name="Releaseplanning Servlet" i18n-name-key="releaseplanning-servlet.name" key="releaseplanning-servlet" class="io.ecx.jira.servlet.ReleaseplanningServlet">
+    <description key="releaseplanning-servlet.description">The Releaseplanning Servlet Plugin</description>
+    <url-pattern>/releaseplanning</url-pattern>
+  </servlet>
+  <webwork1 key="release-planning-webwork-module" name="Release Planning Webwork Module" i18n-name-key="release-planning-webwork-module.name">
+    <description key="release-planning-webwork-module.description">The Release Planning Webwork Module Plugin</description>
+    <actions>
+      <action name="io.ecx.jira.releaseplanningwebwork.ReleasePlanningWebworkClass" alias="ReleasePlanning">
+        <view name="ReleasePlanningSuccess">/templates/release-planning-webwork-module/releaseplanningwebworkclass/ReleasePlanningSuccess.vm</view>
+      </action>
+    </actions>
+  </webwork1>
+  <ao key="ao-module">
+    <description>Active Objects Module for plugin-project data</description>
+    <entity>io.ecx.jira.ao.ReleasePlanProject</entity>
+  </ao>
+  <servlet name="Display Project" i18n-name-key="display-project.name" key="display-project" class="io.ecx.jira.servlet.DisplayProject">
+    <description key="display-project.description">The Display Project Plugin</description>
+    <url-pattern>/displayproject</url-pattern>
+  </servlet>
 </atlassian-plugin>
