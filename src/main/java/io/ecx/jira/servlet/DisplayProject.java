@@ -41,9 +41,12 @@ public class DisplayProject extends HttpServlet{
                 + "    </head>"
                 + "<body>");
         
-        importUrl = plugin.getResource("/html/displayProject.html");
+        importUrl = plugin.getResource("/html/MainStyle.html");
         String allLines = SharedMethods.insertProjectsToSelect(importUrl.openStream());
         pw.print(allLines);
+        importUrl = plugin.getResource("/html/displayProject.html");
+        allLines=SharedMethods.readAllLines(importUrl.openStream());
+        pw.println(allLines+"</section>");
     }
 
 }

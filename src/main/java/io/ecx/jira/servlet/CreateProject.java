@@ -67,10 +67,10 @@ public class CreateProject extends HttpServlet
         final int jiraProjectId = Integer.parseInt(req.getParameter("Project"));
 
         String[] split = sD.split("\\.");
-        GregorianCalendar cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1]), Integer.parseInt(split[0]));
+        GregorianCalendar cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1])-1, Integer.parseInt(split[0]));
         final Date startDate = cal.getTime();
         split = eD.split("\\.");
-        cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1]), Integer.parseInt(split[0]));
+        cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1])-1, Integer.parseInt(split[0]));
         final Date endDate = cal.getTime();
 
         activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()

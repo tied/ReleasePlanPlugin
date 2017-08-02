@@ -1,24 +1,16 @@
 
-<div class="generalAdminHeading aui-page-header">
-    <div class="aui-page-header-inner">
-        <div class="aui-page-header-main">
-            <h1>Release Planning</h1>
-        </div>
-    </div>
-</div>
 <div class="aui-page-panel-nav">
     <!-- Vertical Nav is usually placed inside .aui-page-panel-nav. Refer to content layout documentation for details. -->
+
     <nav class="aui-navgroup aui-navgroup-vertical">
         <div class="aui-navgroup-inner">
             <ul class="aui-nav">
                 <li class="aui-nav-selected"><a href="http://example.com/">Usage</a></li>
             </ul>
-            <div class="aui-nav-heading">
-                <strong>Planing</strong>
-            </div>
+            <div class="aui-nav-heading"><strong>Planing</strong></div>
             <ul class="aui-nav">
                 <li id="createProject"><a onclick="createProject()">Create Project</a></li>
-                <li><a href="http://example.com/">Groups</a></li>
+                <li><a href="/jira/plugins/servlet/displayproject">Display Project</a></li>
                 <li><a href="http://example.com/">Global permissions</a></li>
                 <li><a href="http://example.com/">Authentication</a></li>
                 <li><a href="http://example.com/">Avatars</a></li>
@@ -27,28 +19,26 @@
             <div class="aui-nav-heading"><strong>Settings</strong></div>
             <ul class="aui-nav">
                 <li><a href="http://example.com/">Server settings</a></li>
-                <li><a href="http://example.com/">Database</a></li>
-                <li><a href="http://example.com/">Application links</a></li>
-                <li><a href="http://example.com/">Mail server</a></li>
-                <li><a href="http://example.com/">Licensing</a></li>
             </ul>
             <div class="aui-nav-heading"><strong>Support</strong></div>
             <ul class="aui-nav">
                 <li><a href="http://example.com/">Atlassian Support Tools</a></li>
-                <li><a href="http://example.com/">Logging and Profiling</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- Vertical Nav is usually placed inside aui-page-panel-nav -->
 </div>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<section class="aui-page-panel-content">
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <style>
         .ui-datepicker-current { display: none; }
     </style>
+
     <script>
                     $(function () {
                         //$("#start-date").datepicker();
@@ -58,7 +48,7 @@
                         var dialog = document.getElementById("dialog");
                         dialog.setAttribute("hidden", null);
 
-                        
+
                         datePickers();
 
                     });
@@ -113,7 +103,7 @@
                     }
 
     </script>
-    <div id="blanket" class="ui-widget-overlay ui-front" tabindex="0" hidden></div>
+<div id="blanket" class="ui-widget-overlay ui-front" tabindex="0" hidden></div>
     <div id="dialog" title="CreateProject">
         <form action="/jira/plugins/servlet/createproject" method="post" id="createProjectForm" class="aui">
             <fieldset>
@@ -262,4 +252,4 @@
             <input type="submit" class="aui-button aui-button-primary" value="Create" style="float: right"/>
         </form>
     </div>
-<section class="aui-page-panel-content">
+

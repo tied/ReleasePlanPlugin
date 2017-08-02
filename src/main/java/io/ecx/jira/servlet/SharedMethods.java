@@ -67,7 +67,7 @@ public class SharedMethods {
                 String self = proj.getString("self");
                 int id = proj.getInt("id");
                 String name = proj.getString("name");
-                options += "<option value ='" + id + "'>" + name + "</option>";
+                options += "<option value ='" + id + "'>" + name + "</option>\r\n";
             }
             
             buf.replace(start, start + "<!--breakpoint-->".length(), options);
@@ -95,7 +95,7 @@ public class SharedMethods {
 
             SSLContext.setDefault(ctx);
 
-            String authStr = "";
+            String authStr = "alexander.perndorfer:Sec098808";
             String authEncoded = Base64.encodeBase64String(authStr.getBytes());
 
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();

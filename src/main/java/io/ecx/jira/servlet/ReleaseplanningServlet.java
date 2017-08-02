@@ -48,7 +48,7 @@ public class ReleaseplanningServlet extends HttpServlet
                 + "<body>");
         importUrl = plugin.getResource("/html/MainStyle.html");
         String allLines = SharedMethods.insertProjectsToSelect(importUrl.openStream());
-        pw.print(allLines);
+        pw.print(allLines+"</section>");
 
     }
 
