@@ -8,6 +8,8 @@ package io.ecx.jira.ao;
 import java.util.Date;
 import net.java.ao.Entity;
 import net.java.ao.Preload;
+import net.java.ao.schema.NotNull;
+import net.java.ao.schema.PrimaryKey;
 
 /**
  *

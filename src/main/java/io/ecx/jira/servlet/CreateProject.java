@@ -90,7 +90,7 @@ public class CreateProject extends HttpServlet
                 return proj;
             }
         });
-        pw.write("Done");
+        resp.sendRedirect("http://local");
     }
 
     @Override
@@ -110,10 +110,13 @@ public class CreateProject extends HttpServlet
                 for (ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
                 {
                     pw.print("Name: "+proj.getName()+" JiraProjectId: "+proj.getJiraProjectId()+" Sprints: "+proj.getSprints()+ " SprintDuration: "+proj.getSprintDuration()+" StartDate: "+proj.getStartDate()+" EndDate: "+proj.getEndDate()+" Storypoints: "+proj.getStorypoints()+"Project Finished: "+proj.getProjectFinished()+br);
+                    //activeObjects.delete(proj);
                 }
                 return null;
             }
         });
+        
+        
 
     }
 
