@@ -90,7 +90,7 @@ public class CreateProject extends HttpServlet
                 return proj;
             }
         });
-        resp.sendRedirect("http://local");
+        resp.sendRedirect("http://localhost:2990/jira/plugins/servlet/displayproject");//parameter mitgeben damit richtiges Projekt geladen werden kann
     }
 
     @Override
