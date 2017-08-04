@@ -2,11 +2,13 @@ package io.ecx.jira.servlet;
 
 import com.atlassian.activeobjects.external.ActiveObjects;
 import com.atlassian.jira.component.ComponentAccessor;
+import com.atlassian.jira.config.properties.APKeys;
+import com.atlassian.jira.security.JiraAuthenticationContext;
+import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.plugin.Plugin;
 import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.webresource.api.assembler.PageBuilderService;
 import io.ecx.jira.ao.ReleasePlanProject;
-import java.beans.XMLEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,22 +18,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.logging.Level;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import org.apache.commons.codec.binary.Base64;
 
 public class CreateProject extends HttpServlet
@@ -57,7 +53,14 @@ public class CreateProject extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
-        pw = resp.getWriter();
+        String redirect = ComponentAccessor.getApplicationProperties().getString(APKeys.JIRA_BASEURL);
+        JiraAuthenticationContext jiraAuthenticationContext = ComponentAccessor.getJiraAuthenticationContext();
+        ApplicationUser user = jiraAuthenticationContext.getLoggedInUser();
+        if (user == null)
+        {
+            resp.sendRedirect(redirect);
+            return;
+        }
         final String name = req.getParameter("ProjectName");
         final int sprints = Integer.parseInt(req.getParameter("Sprints"));
         final int sprintDuration = Integer.parseInt(req.getParameter("SprintDuration"));
@@ -90,7 +93,7 @@ public class CreateProject extends HttpServlet
                 return proj;
             }
         });
-        resp.sendRedirect("http://localhost:2990/jira/plugins/servlet/displayproject");//parameter mitgeben damit richtiges Projekt geladen werden kann
+        resp.sendRedirect(redirect+"/plugins/servlet/displayproject?id="+jiraProjectId);//parameter mitgeben damit richtiges Projekt geladen werden kann
     }
 
     @Override
