@@ -95,7 +95,7 @@ public class SharedMethods {
 
             SSLContext.setDefault(ctx);
 
-            String authStr = "";
+            String authStr = "alexander.perndorfer:Sec098808";
             String authEncoded = Base64.encodeBase64String(authStr.getBytes());
 
             HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();

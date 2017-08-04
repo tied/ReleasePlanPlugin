@@ -55,8 +55,6 @@ public class DisplayProject extends HttpServlet
                 + "    <head>\n"
                 + "        <title>Planning Page - Release Planning Plugin</title>\n"
                 + "        <meta name=\"decorator\" content=\"atl.general\">\n"
-                + "        <link rel=\"stylesheet\" type=\"text/css\" href=\"../displayProjectstyle.css\">"
-                + "        <script src=\"../displayProjectscript.js\"></script>"
                 + "    </head>"
                 + "<body>");
 
