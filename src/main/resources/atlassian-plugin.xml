@@ -20,8 +20,8 @@
   </web-resource>
   <web-resource key="DisplayProject-resources" name="DisplayProject Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
-    <resource type="download" name="displayProjectstyle.css" location="/css/displayProjectstyle.css"/>
-    <resource type="download" name="displayProjectscript.js" location="/js/displayProjectscript.js"/>
+    <resource type="download" name="displayProjectstyle.css" location="/css/DisplayProjectstyle.css"/>
+    <resource type="download" name="displayProjectscript.js" location="/js/DisplayProjectscript.js"/>
     <context>ReleasePlanPlugin</context>
   </web-resource>
   <servlet name="Create Project" i18n-name-key="create-project.name" key="create-project" class="io.ecx.jira.servlet.CreateProject">

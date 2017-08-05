@@ -9,7 +9,7 @@
             </ul>
             <div class="aui-nav-heading"><strong>Planing</strong></div>
             <ul class="aui-nav">
-                <li id="createProject"><a onclick="createProject()">Create Project</a></li>
+                <li id="createProject"><a onclick="createProject()" style="cursor: pointer;">Create Project</a></li>
                 <li><a href="/jira/plugins/servlet/displayproject">Display Project</a></li>
                 <li><a href="http://example.com/">Global permissions</a></li>
                 <li><a href="http://example.com/">Authentication</a></li>
@@ -40,7 +40,8 @@
     </style>
 
     <script>
-                    $(function () {
+                    $(function ()
+                    {
                         //$("#start-date").datepicker();
                         //$("#end-date").datepicker();
                         //$("#start-date").datepicker("option", "dateFormat", "dd.mm.yy");
@@ -57,18 +58,19 @@
                     {
                         console.warn("click");
                         $("#dialog").dialog("close");
-                        var blanket = document.getElementById("blanket");
-                        blanket.setAttribute("hidden", null);
                     }
 
                     function createProject()
                     {
-                        $("#dialog").dialog();
+                        $("#dialog").dialog({
+                            resizable: false,
+                            height: 380,
+                            width: 400,
+                            modal: true
+                        });
                         var dialog = document.getElementById("dialog");
                         dialog.removeAttribute("hidden");
                         console.warn("click");
-                        var blanket = document.getElementById("blanket");
-                        blanket.removeAttribute("hidden");
                     }
 
                     function datePickers()
@@ -78,10 +80,12 @@
                             showButtonPanel: true,
                             closeText: 'Clear', // Text to show for "close" button
                             dateFormat: 'dd.mm.yy',
-                            onClose: function () {
+                            onClose: function ()
+                            {
                                 var event = arguments.callee.caller.caller.arguments[0];
                                 // If "Clear" gets clicked, then really clear it
-                                if ($(event.delegateTarget).hasClass('ui-datepicker-close')) {
+                                if ($(event.delegateTarget).hasClass('ui-datepicker-close'))
+                                {
                                     $(this).val('');
                                 }
                             }
@@ -92,10 +96,12 @@
                             showButtonPanel: true,
                             closeText: 'Clear', // Text to show for "close" button
                             dateFormat: 'dd.mm.yy',
-                            onClose: function () {
+                            onClose: function ()
+                            {
                                 var event = arguments.callee.caller.caller.arguments[0];
                                 // If "Clear" gets clicked, then really clear it
-                                if ($(event.delegateTarget).hasClass('ui-datepicker-close')) {
+                                if ($(event.delegateTarget).hasClass('ui-datepicker-close'))
+                                {
                                     $(this).val('');
                                 }
                             }
@@ -103,7 +109,6 @@
                     }
 
     </script>
-    <div id="blanket" class="ui-widget-overlay ui-front" tabindex="0" hidden></div>
     <div id="dialog" title="CreateProject">
         <form action="/jira/plugins/servlet/createproject" method="post" id="createProjectForm" class="aui">
             <fieldset>

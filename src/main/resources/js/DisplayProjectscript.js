@@ -1,6 +1,5 @@
-
 window.onload = function addColumns() {
-    var columncount = 10; //get columns
+    var columncount = 2; //get columns
 
     for (var i = 1; i < columncount; i++) {
         var row = document.getElementById("rp_headers");

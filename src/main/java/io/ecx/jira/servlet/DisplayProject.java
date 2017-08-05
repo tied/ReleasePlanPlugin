@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.Locale;
 import javax.inject.Inject;
 import net.java.ao.Query;
+import sun.util.spi.CalendarProvider;
 
 public class DisplayProject extends HttpServlet
 {
@@ -75,7 +76,8 @@ public class DisplayProject extends HttpServlet
         pw.print(allLines);
         importUrl = plugin.getResource("/html/displayProject.html");
         allLines = SharedMethods.readAllLines(importUrl.openStream());
-        pw.println(allLines + "</section>");
+        pw.println(allLines + "</section></body></html>");
+        
     }
 
 }
