@@ -37,15 +37,12 @@
 
     <style>
         .ui-datepicker-current { display: none; }
+        .ui-datepicker-close {display: block; width: 100%;}
     </style>
 
     <script>
                     $(function ()
                     {
-                        //$("#start-date").datepicker();
-                        //$("#end-date").datepicker();
-                        //$("#start-date").datepicker("option", "dateFormat", "dd.mm.yy");
-                        //$("#end-date").datepicker("option", "dateFormat", "dd.mm.yy");
                         var dialog = document.getElementById("dialog");
                         dialog.setAttribute("hidden", null);
 
@@ -75,6 +72,21 @@
 
                     function datePickers()
                     {
+                        var sd = document.getElementById("start-date");
+                        var d = new Date();
+                        var mo = d.getMonth() + 1;
+                        if (mo.toString().length === 1)
+                        {
+                            mo = "0" + mo.toString();
+                        }
+                        var day = d.getDate();
+                        if (day.toString().length === 1)
+                        {
+                            day = "0" + day.toString();
+                            console.log(day.toString());
+                        }
+                        sd.value = day + "." + mo + "." + d.getFullYear();
+
                         $("#start-date").datepicker({
                             showOn: 'focus',
                             showButtonPanel: true,
