@@ -1,28 +1,27 @@
 .rp_table {
-    border: 2px solid black;
+    border: 1px solid black;
     border-collapse: collapse;
-    width: 100%;
-    column-width: 100px;
+}
+.rp_table_div {
+    overflow: auto;
+    border: 1px solid black;
+    width: 500px;
+}
+.rp_table td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    min-width: 65px;
+}
+.rp_table tr {
+
 }
 .rp_tr_1 {
-    border: 2px solid black;
-    border-collapse: collapse;
     height:auto;
+    
 }
 .rp_tr_2 {
-    border: 2px solid black;
-    border-collapse: collapse;
     height: 120px;
 }
 .rp_tr_3 {
-    border: 2px solid black;
-    border-collapse: collapse;
     height: 30px;
-}
-.rp_table_div {
-}
-.rp_table tr, .rp_table td {
-    border: 2px solid black;
-    border-collapse: collapse;
-    width: 100px;
 }

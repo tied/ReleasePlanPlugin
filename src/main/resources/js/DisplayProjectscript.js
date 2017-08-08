@@ -1,17 +1,24 @@
 window.onload = function addColumns() {
     var columncount = project.sprints; //get columns
-    
     document.getElementById("startSprint").innerHTML='<p>Sprint 1</p><p >SP: '+project.storyPoints+'</p>';
-    
+    /*
+    var incol='';
+    for (var i = 0; i < columncount; i++) {
+        incol=incol+'<col style="width: 10px"/>';
+    }
+    document.getElementById("col_group").innerHTML=incol;
+    */
     for (var i = 1; i < columncount; i++) {
         var row = document.getElementById("rp_headers");
-        row.insertCell(i).innerHTML = '<td ><p>Sprint '+(i+1)+'</p><p>SP: '+project.storyPoints+'</p></td>';
+        row.insertCell(i).innerHTML = '<td style="min-width:50px"><p>Sprint '+(i+1)+'</p><p>SP: '+project.storyPoints+'</p></td>';
 
         var row = document.getElementById("rp_row_2");
         row.insertCell(i).innerHTML = '<td > </td>';
 
         var row = document.getElementById("rp_row_3");
         row.insertCell(i).innerHTML = '<td > </td>';
+        
+        
     }
     var startdateparts=project.startDate.split('-');
     var enddateparts=project.endDate.split('-');
