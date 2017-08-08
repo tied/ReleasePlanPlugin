@@ -117,6 +117,33 @@
                                 }
                             }
                         });
+
+                        function restrictEndDate()
+                        {
+
+                            var day = $("#start-date").datepicker('getDate').getDate();
+                            var month = $("#start-date").datepicker('getDate').getMonth() + 1;
+                            var year = $("#start-date").datepicker('getDate').getFullYear();
+                            var date = new Date(year+"-"+month+"-"+day);
+                            console.log(date);
+
+                            $("#end-date").datepicker({
+                                showOn: 'focus',
+                                showButtonPanel: true,
+                                closeText: 'Clear', // Text to show for "close" button
+                                dateFormat: 'dd.mm.yy',
+                                minDate: date,
+                                onClose: function ()
+                                {
+                                    var event = arguments.callee.caller.caller.arguments[0];
+                                    // If "Clear" gets clicked, then really clear it
+                                    if ($(event.delegateTarget).hasClass('ui-datepicker-close'))
+                                    {
+                                        $(this).val('');
+                                    }
+                                }
+                            });
+                        }
                     }
 
     </script>
@@ -129,7 +156,7 @@
                 </div>
                 <div class="field-group">
                     <label for="start-date">Project Start<span class="aui-icon icon-required"> required</span></label>
-                    <input class="text" type="text" id="start-date" title="Start Date" onkeydown="return false" placeholder="DD.MM.YYYY" name="StartDate">
+                    <input class="text" type="text" id="start-date" title="Start Date" onkeydown="return false" placeholder="DD.MM.YYYY" name="StartDate" onchange="restrictEndDate()">
                 </div>
                 <div class="field-group">
                     <label for="end-date">Project End<span class="aui-icon icon-required"> required</span></label>
