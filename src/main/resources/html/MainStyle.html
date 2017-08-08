@@ -118,32 +118,36 @@
                             }
                         });
 
-                        function restrictEndDate()
-                        {
 
-                            var day = $("#start-date").datepicker('getDate').getDate();
-                            var month = $("#start-date").datepicker('getDate').getMonth() + 1;
-                            var year = $("#start-date").datepicker('getDate').getFullYear();
-                            var date = new Date(year+"-"+month+"-"+day);
-                            console.log(date);
+                    }
 
-                            $("#end-date").datepicker({
-                                showOn: 'focus',
-                                showButtonPanel: true,
-                                closeText: 'Clear', // Text to show for "close" button
-                                dateFormat: 'dd.mm.yy',
-                                minDate: date,
-                                onClose: function ()
+                    function restrictEndDate()
+                    {
+
+                        var day = $("#start-date").datepicker('getDate').getDate();
+                        var month = $("#start-date").datepicker('getDate').getMonth() + 1;
+                        var year = $("#start-date").datepicker('getDate').getFullYear();
+                        var date = new Date(year + "-" + month + "-" + day);
+                        console.log(date);
+
+                        $("#end-date").datepicker("destroy");
+                        $("#end-date").datepicker({
+                            showOn: 'focus',
+                            showButtonPanel: true,
+                            closeText: 'Clear', // Text to show for "close" button
+                            dateFormat: 'dd.mm.yy',
+                            minDate: date,
+                            onClose: function ()
+                            {
+                                var event = arguments.callee.caller.caller.arguments[0];
+                                // If "Clear" gets clicked, then really clear it
+                                if ($(event.delegateTarget).hasClass('ui-datepicker-close'))
                                 {
-                                    var event = arguments.callee.caller.caller.arguments[0];
-                                    // If "Clear" gets clicked, then really clear it
-                                    if ($(event.delegateTarget).hasClass('ui-datepicker-close'))
-                                    {
-                                        $(this).val('');
-                                    }
+                                    $(this).val('');
                                 }
-                            });
-                        }
+                            }
+                        });
+                        
                     }
 
     </script>
