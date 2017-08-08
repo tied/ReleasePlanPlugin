@@ -71,14 +71,26 @@
 
                     function datePickers()
                     {
-                        
+                        var sd = document.getElementById("start-date");
+                        var d = new Date();
+                        var mo = d.getMonth() + 1;
+                        if (mo.toString().length === 1)
+                        {
+                            mo = "0" + mo.toString();
+                        }
+                        var day = d.getDate();
+                        if (day.toString().length === 1)
+                        {
+                            day = "0" + day.toString();
+                            console.log(day.toString());
+                        }
+                        sd.value = day + "." + mo + "." + d.getFullYear();
 
                         $("#start-date").datepicker({
                             showOn: 'focus',
                             showButtonPanel: true,
                             closeText: 'Clear', // Text to show for "close" button
                             dateFormat: 'dd.mm.yy',
-                            defaultDate: new Date()
                             onClose: function ()
                             {
                                 var event = arguments.callee.caller.caller.arguments[0];
