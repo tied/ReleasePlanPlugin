@@ -37,7 +37,6 @@
 
     <style>
         .ui-datepicker-current { display: none; }
-        .ui-datepicker-close {display: block; width: 100%;}
     </style>
 
     <script>
@@ -118,11 +117,58 @@
                                 }
                             }
                         });
+
+
                     }
+
+                    function restrictEndDate()
+                    {
+
+                        var day = $("#start-date").datepicker('getDate').getDate();
+                        var month = $("#start-date").datepicker('getDate').getMonth() + 1;
+                        var year = $("#start-date").datepicker('getDate').getFullYear();
+                        var date = new Date(year + "-" + month + "-" + day);
+                        console.log(date);
+
+                        $("#end-date").datepicker("destroy");
+                        $("#end-date").datepicker({
+                            showOn: 'focus',
+                            showButtonPanel: true,
+                            closeText: 'Clear', // Text to show for "close" button
+                            dateFormat: 'dd.mm.yy',
+                            minDate: date,
+                            onClose: function ()
+                            {
+                                var event = arguments.callee.caller.caller.arguments[0];
+                                // If "Clear" gets clicked, then really clear it
+                                if ($(event.delegateTarget).hasClass('ui-datepicker-close'))
+                                {
+                                    $(this).val('');
+                                }
+                            }
+                        });
+
+                    }
+                    
+                    function validateForm()
+                    {
+                        var form = document.forms["createProjectForm"];
+                        var projectName = form["ProjectName"].value;
+                        var startDate = form["StartDate"].value;
+                        var endDate = form["EndDate"].value;
+                        var storyPoints = form["StoryPoints"].value;
+                        
+                        if(projectName ==""||startDate==""||endDate==""||storyPoints=="")
+                        {
+                            alert("Irgendwas");
+                            return false;
+                        }
+                    }
+
 
     </script>
     <div id="dialog" title="CreateProject">
-        <form action="/jira/plugins/servlet/createproject" method="post" id="createProjectForm" class="aui">
+        <form action="/jira/plugins/servlet/createproject" method="post" id="createProjectForm" name = "createProjectForm" class="aui" onsubmit="return validateForm()">
             <fieldset>
                 <div class="field-group">
                     <label for="project-name">Project<span class="aui-icon icon-required"> required</span></label>
@@ -130,7 +176,7 @@
                 </div>
                 <div class="field-group">
                     <label for="start-date">Project Start<span class="aui-icon icon-required"> required</span></label>
-                    <input class="text" type="text" id="start-date" title="Start Date" onkeydown="return false" placeholder="DD.MM.YYYY" name="StartDate">
+                    <input class="text" type="text" id="start-date" title="Start Date" onkeydown="return false" placeholder="DD.MM.YYYY" name="StartDate" onchange="restrictEndDate()">
                 </div>
                 <div class="field-group">
                     <label for="end-date">Project End<span class="aui-icon icon-required"> required</span></label>
@@ -253,7 +299,7 @@
                 </div>
                 <div class="field-group">
                     <label for="story-points">Storypoints</label>
-                    <input class="text short-field" type="number" min="0" max ="20" id="story-points" title="Sprints" name="StoryPoints"/>
+                    <input class="text short-field" type="number" min="1" max ="20" value="1" id="story-points" title="Sprints" name="StoryPoints"/>
                 </div>
             </fieldset>
             <fieldset>
