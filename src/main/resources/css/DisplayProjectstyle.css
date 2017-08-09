@@ -4,7 +4,7 @@
 }
 .rp_table_div {
     overflow: auto;
-    border: 1px solid black;
+   /* border: 1px solid black; */
     width: 500px;
 }
 .rp_table td{
