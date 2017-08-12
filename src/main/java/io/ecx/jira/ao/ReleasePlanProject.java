@@ -40,4 +40,7 @@ public interface ReleasePlanProject extends Entity
     boolean getProjectFinished();
     void setProjectFinished(boolean finished);
     
+    String getNote();
+    void setNote(String finished);
+    
 }

@@ -89,6 +89,7 @@ public class CreateProject extends HttpServlet
                 proj.setStorypoints(storypoints);
                 proj.setSprintDuration(sprintDuration);
                 proj.setProjectFinished(false);
+                proj.setNote("");
                 proj.save();
                 return proj;
             }

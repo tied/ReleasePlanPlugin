@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.Locale;
 import javax.inject.Inject;
 import net.java.ao.Query;
-//import sun.util.spi.CalendarProvider;
 
 public class DisplayProject extends HttpServlet
 {
