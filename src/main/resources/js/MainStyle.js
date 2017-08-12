@@ -19,7 +19,7 @@ function init()
 function calcSP()
 {
     console.log("calc");
-    var sp = ($("#man-days").val()*$("#factor").val());
+    var sp = ($("#man-days").val() * $("#factor").val());
     $("#story-points").val(sp);
 }
 
@@ -130,11 +130,21 @@ function validateForm()
     var projectName = form["ProjectName"].value;
     var startDate = form["StartDate"].value;
     var endDate = form["EndDate"].value;
-    var storyPoints = form["StoryPoints"].value;
+    var manDays = form["ManDays"].value;
+    var factor = form["Factor"].value;
 
-    if (projectName == "" || startDate == "" || endDate == "" || storyPoints == "")
+    if (projectName == "" || startDate == "" || endDate == "" || manDays == "" || factor == "")
     {
-        alert("Irgendwas");
+        require(["aui/flag"], function (flag)
+        {
+            var myFlag = flag({
+                type: "warning",
+                title: "Create Releaseplan",
+                body: "Please fill in all fields!"
+            });
+            setTimeout(function (){myFlag.close();},3000);
+        });
+
         return false;
     }
 }
