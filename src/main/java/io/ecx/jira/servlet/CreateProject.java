@@ -61,40 +61,14 @@ public class CreateProject extends HttpServlet
             resp.sendRedirect(redirect);
             return;
         }
-        final String name = req.getParameter("ProjectName");
-        final int sprints = Integer.parseInt(req.getParameter("Sprints"));
-        final int sprintDuration = Integer.parseInt(req.getParameter("SprintDuration"));
-        final int storypoints = Integer.parseInt(req.getParameter("StoryPoints"));
-        final String sD = req.getParameter("StartDate");
-        final String eD = req.getParameter("EndDate");
-        final int jiraProjectId = Integer.parseInt(req.getParameter("Project"));
+        final String action = req.getParameter("Action");
 
-        String[] split = sD.split("\\.");
-        GregorianCalendar cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1])-1, Integer.parseInt(split[0]));
-        final Date startDate = cal.getTime();
-        split = eD.split("\\.");
-        cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1])-1, Integer.parseInt(split[0]));
-        final Date endDate = cal.getTime();
-
-        activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()
+        if (action.toLowerCase().equals("create"))
         {
-            public ReleasePlanProject doInTransaction()
-            {
-                final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class);
-                proj.setName(name);
-                proj.setJiraProjectId(jiraProjectId);
-                proj.setStartDate(startDate);
-                proj.setEndDate(endDate);
-                proj.setSprints(sprints);
-                proj.setStorypoints(storypoints);
-                proj.setSprintDuration(sprintDuration);
-                proj.setProjectFinished(false);
-                proj.setNote("");
-                proj.save();
-                return proj;
-            }
-        });
-        resp.sendRedirect(redirect+"/plugins/servlet/displayproject?id="+jiraProjectId);//parameter mitgeben damit richtiges Projekt geladen werden kann
+            int jiraProjectId = createReleasePlan(req);
+            resp.sendRedirect(redirect + "/plugins/servlet/displayproject?id=" + jiraProjectId);//parameter mitgeben damit richtiges Projekt geladen werden kann
+        }
+
     }
 
     @Override
@@ -105,7 +79,7 @@ public class CreateProject extends HttpServlet
         apiReq = "https://ticket.ecx.io/rest/agile/1.0/";
         //pageBuilderService.assembler().resources().requireWebResource("io.ecx.jira.ReleasePlanPlugin:ReleasePlanPlugin-resources");
         String name = plugin.getName();
-        
+
         activeObjects.executeInTransaction(new TransactionCallback<Void>()
         {
             public Void doInTransaction()
@@ -113,14 +87,12 @@ public class CreateProject extends HttpServlet
 
                 for (ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
                 {
-                    pw.print("Name: "+proj.getName()+" JiraProjectId: "+proj.getJiraProjectId()+" Sprints: "+proj.getSprints()+ " SprintDuration: "+proj.getSprintDuration()+" StartDate: "+proj.getStartDate()+" EndDate: "+proj.getEndDate()+" Storypoints: "+proj.getStorypoints()+"Project Finished: "+proj.getProjectFinished()+br);
+                    pw.print("Name: " + proj.getName() + br + "\r\nNotes: " + proj.getNote() + br + "\r\nJiraProjectId: " + proj.getJiraProjectId() + br + "\r\nSprints: " + proj.getSprints() + br + "\r\nSprintDuration: " + proj.getSprintDuration() + br + "\r\nStartDate: " + proj.getStartDate() + br + "\r\nEndDate: " + proj.getEndDate() + br + "\r\nStorypoints: " + proj.getStorypoints() + br + "\r\nProject Finished: " + proj.getProjectFinished() + br + "Man Days: " + proj.getManDays() + " Factor: " + proj.getFactor() + "<hr>");
                     //activeObjects.delete(proj);
                 }
                 return null;
             }
         });
-        
-        
 
     }
 
@@ -226,8 +198,46 @@ public class CreateProject extends HttpServlet
 //        return allLines;
 //    }
     //</editor-fold>
-    public void setPageBuilderService(PageBuilderService pageBuilderService)
+    private int createReleasePlan(HttpServletRequest req)
     {
-        this.pageBuilderService = pageBuilderService;
+        final String name = req.getParameter("ProjectName");
+        final int sprints = Integer.parseInt(req.getParameter("Sprints"));
+        final int sprintDuration = Integer.parseInt(req.getParameter("SprintDuration"));
+        final int storypoints = Integer.parseInt(req.getParameter("StoryPoints"));
+        final String sD = req.getParameter("StartDate");
+        final String eD = req.getParameter("EndDate");
+        final int jiraProjectId = Integer.parseInt(req.getParameter("Project"));
+        final int manDays = Integer.parseInt(req.getParameter("ManDays"));
+        final int factor = Integer.parseInt(req.getParameter("Factor"));
+
+        String[] split = sD.split("\\.");
+        GregorianCalendar cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1]) - 1, Integer.parseInt(split[0]));
+        final Date startDate = cal.getTime();
+        split = eD.split("\\.");
+        cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1]) - 1, Integer.parseInt(split[0]));
+        final Date endDate = cal.getTime();
+
+        activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()
+        {
+            public ReleasePlanProject doInTransaction()
+            {
+                final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class);
+                proj.setName(name);
+                proj.setJiraProjectId(jiraProjectId);
+                proj.setStartDate(startDate);
+                proj.setEndDate(endDate);
+                proj.setSprints(sprints);
+                proj.setStorypoints(storypoints);
+                proj.setSprintDuration(sprintDuration);
+                proj.setProjectFinished(false);
+                proj.setNote("");
+                proj.setManDays(manDays);
+                proj.setFactor(factor);
+                proj.save();
+                return proj;
+            }
+        });
+        return jiraProjectId;
     }
+
 }

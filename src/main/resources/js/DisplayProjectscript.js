@@ -24,5 +24,5 @@ window.onload = function addColumns() {
     var enddateparts=project.endDate.split('-');
        document.getElementById("start_date").innerHTML='Start: '+startdateparts[2]+'.'+startdateparts[1]+'.'+startdateparts[0];
         document.getElementById("end_date").innerHTML='End: '+enddateparts[2]+'.'+enddateparts[1]+'.'+enddateparts[0];
-        document.getElementById("project_name").innerHTML='Start: '+project.name +' - Plan';
+        document.getElementById("project_name").innerHTML=project.name +' Release - Plan';
 }

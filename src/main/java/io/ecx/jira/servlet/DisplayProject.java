@@ -18,9 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
 import javax.inject.Inject;
 import net.java.ao.Query;
 
@@ -48,6 +45,7 @@ public class DisplayProject extends HttpServlet
         String id = req.getParameter("id");
         ReleasePlanProject[] projects = activeObjects.find(ReleasePlanProject.class, Query.select().where("JIRA_PROJECT_ID = ?", id));
         pageBuilderService.assembler().resources().requireWebResource("io.ecx.jira.ReleasePlanPlugin:DisplayProject-resources");
+        pageBuilderService.assembler().resources().requireWebResource("io.ecx.jira.ReleasePlanPlugin:MainStyle-resources");
 
         resp.setContentType("text/html");
         pw = resp.getWriter();
@@ -61,7 +59,7 @@ public class DisplayProject extends HttpServlet
         String projectJson = "";
         if (projects.length > 0)
         {
-            ReleasePlanProjectBean project = new ReleasePlanProjectBean(projects[0].getName(), projects[0].getStartDate(), projects[0].getEndDate(), projects[0].getSprints(), projects[0].getSprintDuration(), projects[0].getStorypoints(), projects[0].getJiraProjectId(), projects[0].getProjectFinished());
+            ReleasePlanProjectBean project = new ReleasePlanProjectBean(projects[0].getName(),projects[0].getNote(), projects[0].getStartDate(), projects[0].getEndDate(), projects[0].getSprints(), projects[0].getSprintDuration(),projects[0].getManDays(),projects[0].getFactor(), projects[0].getStorypoints(), projects[0].getJiraProjectId(), projects[0].getProjectFinished());
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.setDateFormat("yyyy-MM-dd");
             Gson gson = gsonBuilder.create();

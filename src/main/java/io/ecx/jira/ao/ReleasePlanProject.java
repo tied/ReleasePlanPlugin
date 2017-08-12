@@ -8,7 +8,6 @@ package io.ecx.jira.ao;
 import java.util.Date;
 import net.java.ao.Entity;
 import net.java.ao.Preload;
-import net.java.ao.schema.*;
 /**
  *
  * @author Alexander
@@ -30,6 +29,12 @@ public interface ReleasePlanProject extends Entity
     
     Integer getSprintDuration();
     void setSprintDuration(Integer sprintDuration);
+    
+    Integer getManDays();
+    void setManDays(Integer md);
+    
+    Integer getFactor();
+    void setFactor(Integer factor);
     
     Integer getStorypoints();
     void setStorypoints(Integer storypoints);

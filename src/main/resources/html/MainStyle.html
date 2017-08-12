@@ -39,137 +39,10 @@
         .ui-datepicker-current { display: none; }
     </style>
 
-    <script>
-                    $(function ()
-                    {
-                        var dialog = document.getElementById("dialog");
-                        dialog.setAttribute("hidden", null);
-
-
-                        datePickers();
-
-                    });
-
-                    function cancelClicked()
-                    {
-                        console.warn("click");
-                        $("#dialog").dialog("close");
-                    }
-
-                    function createProject()
-                    {
-                        $("#dialog").dialog({
-                            resizable: false,
-                            height: 380,
-                            width: 400,
-                            modal: true
-                        });
-                        var dialog = document.getElementById("dialog");
-                        dialog.removeAttribute("hidden");
-                        console.warn("click");
-                    }
-
-                    function datePickers()
-                    {
-                        var sd = document.getElementById("start-date");
-                        var d = new Date();
-                        var mo = d.getMonth() + 1;
-                        if (mo.toString().length === 1)
-                        {
-                            mo = "0" + mo.toString();
-                        }
-                        var day = d.getDate();
-                        if (day.toString().length === 1)
-                        {
-                            day = "0" + day.toString();
-                            console.log(day.toString());
-                        }
-                        sd.value = day + "." + mo + "." + d.getFullYear();
-
-                        $("#start-date").datepicker({
-                            showOn: 'focus',
-                            showButtonPanel: true,
-                            closeText: 'Clear', // Text to show for "close" button
-                            dateFormat: 'dd.mm.yy',
-                            onClose: function ()
-                            {
-                                var event = arguments.callee.caller.caller.arguments[0];
-                                // If "Clear" gets clicked, then really clear it
-                                if ($(event.delegateTarget).hasClass('ui-datepicker-close'))
-                                {
-                                    $(this).val('');
-                                }
-                            }
-                        });
-
-                        $("#end-date").datepicker({
-                            showOn: 'focus',
-                            showButtonPanel: true,
-                            closeText: 'Clear', // Text to show for "close" button
-                            dateFormat: 'dd.mm.yy',
-                            onClose: function ()
-                            {
-                                var event = arguments.callee.caller.caller.arguments[0];
-                                // If "Clear" gets clicked, then really clear it
-                                if ($(event.delegateTarget).hasClass('ui-datepicker-close'))
-                                {
-                                    $(this).val('');
-                                }
-                            }
-                        });
-
-
-                    }
-
-                    function restrictEndDate()
-                    {
-
-                        var day = $("#start-date").datepicker('getDate').getDate();
-                        var month = $("#start-date").datepicker('getDate').getMonth() + 1;
-                        var year = $("#start-date").datepicker('getDate').getFullYear();
-                        var date = new Date(year + "-" + month + "-" + day);
-                        console.log(date);
-
-                        $("#end-date").datepicker("destroy");
-                        $("#end-date").datepicker({
-                            showOn: 'focus',
-                            showButtonPanel: true,
-                            closeText: 'Clear', // Text to show for "close" button
-                            dateFormat: 'dd.mm.yy',
-                            minDate: date,
-                            onClose: function ()
-                            {
-                                var event = arguments.callee.caller.caller.arguments[0];
-                                // If "Clear" gets clicked, then really clear it
-                                if ($(event.delegateTarget).hasClass('ui-datepicker-close'))
-                                {
-                                    $(this).val('');
-                                }
-                            }
-                        });
-
-                    }
-                    
-                    function validateForm()
-                    {
-                        var form = document.forms["createProjectForm"];
-                        var projectName = form["ProjectName"].value;
-                        var startDate = form["StartDate"].value;
-                        var endDate = form["EndDate"].value;
-                        var storyPoints = form["StoryPoints"].value;
-                        
-                        if(projectName ==""||startDate==""||endDate==""||storyPoints=="")
-                        {
-                            alert("Irgendwas");
-                            return false;
-                        }
-                    }
-
-
-    </script>
-    <div id="dialog" title="CreateProject">
+    <div id="dialog" title="Create Releaseplan">
         <form action="/jira/plugins/servlet/createproject" method="post" id="createProjectForm" name = "createProjectForm" class="aui" onsubmit="return validateForm()">
             <fieldset>
+                <input type="hidden" value="create" id="create-releaseplan" name="Action">
                 <div class="field-group">
                     <label for="project-name">Project<span class="aui-icon icon-required"> required</span></label>
                     <input class="text" type="text" id="project-name" name="ProjectName" title="Project Name" maxlength="50">
@@ -298,8 +171,16 @@
                     </select>
                 </div>
                 <div class="field-group">
-                    <label for="story-points">Storypoints</label>
-                    <input class="text short-field" type="number" min="1" max ="20" value="1" id="story-points" title="Sprints" name="StoryPoints"/>
+                    <label for="man-days">Man Days / MD</label>
+                    <input class="text short-field" type="number" min="0" id="man-days" title="Man Days" name="ManDays"/>
+                </div>
+                <div class="field-group">
+                    <label for="factor">Factor</label>
+                    <input class="text short-field" type="number" min="1" id="factor" title="Factor" name="Factor"/>
+                </div>
+                <div class="field-group">
+                    <label for="story-points">Storypoints / SP</label>
+                    <input class="text short-field" type="text" onkeydown="return false" id="story-points" title="Sprints" name="StoryPoints"/>
                 </div>
             </fieldset>
             <fieldset>

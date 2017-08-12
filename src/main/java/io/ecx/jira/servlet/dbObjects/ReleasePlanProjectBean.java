@@ -14,18 +14,21 @@ import java.util.GregorianCalendar;
  */
 public class ReleasePlanProjectBean
 {
-    private String name;
+    private String name, notes;
     private Date startDate, endDate;
-    private Integer sprints, sprintDuration,storyPoints, jiraProjectId;
+    private Integer sprints, sprintDuration,storyPoints, jiraProjectId, manDays, factor;
     private boolean projectfinished;
 
-    public ReleasePlanProjectBean(String name, Date startDate, Date endDate, Integer sprints, Integer sprintDuration, Integer storyPoints, Integer jiraProjectId, boolean projectfinished)
+    public ReleasePlanProjectBean(String name,String notes, Date startDate, Date endDate, Integer sprints, Integer sprintDuration,Integer manDays, Integer factor, Integer storyPoints, Integer jiraProjectId, boolean projectfinished)
     {
         this.name = name;
+        this.notes = notes;
         this.startDate = startDate;
         this.endDate = endDate;
         this.sprints = sprints;
         this.sprintDuration = sprintDuration;
+        this.manDays = manDays;
+        this.factor = factor;
         this.storyPoints = storyPoints;
         this.jiraProjectId = jiraProjectId;
         this.projectfinished = projectfinished;
@@ -33,6 +36,36 @@ public class ReleasePlanProjectBean
 
     public ReleasePlanProjectBean()
     {
+    }
+
+    public Integer getManDays()
+    {
+        return manDays;
+    }
+
+    public void setManDays(Integer manDays)
+    {
+        this.manDays = manDays;
+    }
+
+    public Integer getFactor()
+    {
+        return factor;
+    }
+
+    public void setFactor(Integer factor)
+    {
+        this.factor = factor;
+    }
+    
+    public String getNotes()
+    {
+        return notes;
+    }
+
+    public void setNotes(String notes)
+    {
+        this.notes = notes;
     }
 
     public String getName()
