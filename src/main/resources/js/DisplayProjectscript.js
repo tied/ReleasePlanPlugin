@@ -1,6 +1,6 @@
 window.onload = function addColumns() {
     var columncount = project.sprints; //get columns
-    document.getElementById("startSprint").innerHTML='<p>Sprint 1</p><p >SP: '+project.storyPoints+'</p>';
+   // document.getElementById("startSprint").innerHTML='<p style="width: 100px">Sprint 1</p><br>   SP: <input style="width: 60px" type="number" value="'+project.storyPoints+'" ><br>';
     /*
     var incol='';
     for (var i = 0; i < columncount; i++) {
@@ -10,7 +10,7 @@ window.onload = function addColumns() {
     */
     for (var i = 1; i < columncount; i++) {
         var row = document.getElementById("rp_headers");
-        row.insertCell(i).innerHTML = '<td style="min-width:50px"><p>Sprint '+(i+1)+'</p><p>SP: '+project.storyPoints+'</p></td>';
+        row.insertCell(i).innerHTML = '<td style="min-width:50px"><p style="width: 100px">Sprint '+(i+1)+'</p><br>   SP: <input style="width: 60px" type="number" value="'+project.storyPoints+'" ><br></td>';
 
         var row = document.getElementById("rp_row_2");
         row.insertCell(i).innerHTML = '<td > </td>';
