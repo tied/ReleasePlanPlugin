@@ -1,23 +1,26 @@
 .rp_table {
     border: 1px solid black;
     border-collapse: collapse;
+    overflow: auto;
 }
 .rp_table_div {
     overflow: auto;
-   /* border: 1px solid black; */
-    width: 500px;
+    width: border-box;
+    width:70vw;
+
 }
 .rp_table td{
     border: 1px solid black;
     border-collapse: collapse;
     min-width: 65px;
+    overflow: auto;
 }
 .rp_table tr {
 
 }
 .rp_tr_1 {
     height:auto;
-    
+
 }
 .rp_tr_2 {
     height: 120px;
@@ -25,7 +28,8 @@
 .rp_tr_3 {
     height: 30px;
 }
-.fc-event .fc-content {
-    position: relative;
-    z-index: 2;
+
+#project_name{
+    text-align: center;
+    max-width: 500px;
 }

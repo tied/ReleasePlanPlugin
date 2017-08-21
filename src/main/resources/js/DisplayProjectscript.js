@@ -1,3 +1,4 @@
+
 window.onload = function addColumns() {
     var columncount = project.sprints; //get columns
     document.getElementById("startSprint").innerHTML = '<p style="width: 100px">Sprint 1</p><br>  <input style="width: 100px"  id="sprint_end_date" title="Sprintenddate" onkeydown="return false" placeholder="DD.MM.YYYY" name="sprint_end_date" type="text"><br>    SP: <input style="width: 60px" type="number" value="' + project.storyPoints + '" ><br>';
@@ -36,6 +37,10 @@ window.onload = function addColumns() {
     });
 
 
+}
+
+window.onresize = function(){
+    
 }
 
 
