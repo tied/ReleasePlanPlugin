@@ -23,13 +23,16 @@
 
 }
 .rp_tr_2 {
-    height: 120px;
-}
-.rp_tr_3 {
-    height: 30px;
+    height: 40vh;
 }
 
 #project_name{
     text-align: center;
     max-width: 500px;
+}
+
+.sprint_title{
+    width: 120px;
+    text-align: center;
+    
 }
