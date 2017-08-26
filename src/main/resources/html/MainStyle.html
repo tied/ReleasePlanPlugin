@@ -40,8 +40,8 @@
             <fieldset>
                 <input type="hidden" value="create" id="create-releaseplan" name="Action">
                 <div class="field-group">
-                    <label for="project-name">Project<span class="aui-icon icon-required"> required</span></label>
-                    <input class="text" type="text" id="project-name" name="ProjectName" title="Project Name" maxlength="50">
+                    <label for="project-name">Title<span class="aui-icon icon-required"> required</span></label>
+                    <input class="text" type="text" id="project-name" name="Title" title="Title" maxlength="50">
                 </div>
                 <div class="field-group">
                     <label for="start-date">Project Start<span class="aui-icon icon-required"> required</span></label>
@@ -52,8 +52,8 @@
                     <input class="text" type="text" id="end-date" title="End Date" onkeydown="return false" placeholder="DD.MM.YYYY" name="EndDate">
                 </div>
                 <div class="field-group">
-                    <label for="sprints">Sprints</label>
-                    <select id="sprints" name="Sprints" class="select">
+                    <label for="sp-per-epic-per-sprint">SP per Epic per Sprint</label>
+                    <select id="sp-per-epic-per-sprint" name="SpPerEpicPerSprint" class="select">
                         <option value=1>1</option>
                         <option value=2>2</option>
                         <option value=3>3</option>
@@ -167,16 +167,16 @@
                     </select>
                 </div>
                 <div class="field-group">
-                    <label for="man-days">Man Days / MD</label>
-                    <input class="text short-field" type="number" min="0" id="man-days" title="Man Days" name="ManDays"/>
+                    <label for="person-days">Person Days / PD</label>
+                    <input id="person-days" class="text short-field" type="number" min="0" title="Person Days" name="PersonDays"/>
                 </div>
                 <div class="field-group">
                     <label for="factor">Factor</label>
-                    <input class="text short-field" type="number" min="1" id="factor" title="Factor" name="Factor"/>
+                    <input id="factor" class="text short-field" type="number" min="1" title="Factor" name="Factor"/>
                 </div>
                 <div class="field-group">
                     <label for="story-points">Storypoints / SP</label>
-                    <input class="text short-field" type="text" onkeydown="return false" id="story-points" title="Sprints" name="StoryPoints"/>
+                    <input id="story-points" class="text short-field" type="text" onkeydown="return false" title="Sprints" name="StoryPoints"/>
                 </div>
             </fieldset>
             <fieldset>

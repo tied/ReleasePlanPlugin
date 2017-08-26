@@ -87,7 +87,7 @@ public class CreateProject extends HttpServlet
 
                 for (ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
                 {
-                    pw.print("Name: " + proj.getName() + br + "\r\nNotes: " + proj.getNote() + br + "\r\nJiraProjectId: " + proj.getJiraProjectId() + br + "\r\nSprints: " + proj.getSprints() + br + "\r\nSprintDuration: " + proj.getSprintDuration() + br + "\r\nStartDate: " + proj.getStartDate() + br + "\r\nEndDate: " + proj.getEndDate() + br + "\r\nStorypoints: " + proj.getStorypoints() + br + "\r\nProject Finished: " + proj.getProjectFinished() + br + "Man Days: " + proj.getManDays() + " Factor: " + proj.getFactor() + "<hr>");
+                    pw.print("Title: " + proj.getTitle()+ br + "\r\nNotes: " + proj.getNote() + br + "\r\nJiraProjectId: " + proj.getJiraProjectId() + br + "\r\nSpPerSprintPerEpic: " + proj.getSpPerEpicPerSprint()+ br + "\r\nSprintDuration: " + proj.getSprintDuration() + br + "\r\nStartDate: " + proj.getStartDate() + br + "\r\nEndDate: " + proj.getEndDate() + br + "\r\nStorypoints: " + proj.getStorypoints() + br + "\r\nProject Finished: " + proj.getProjectFinished() + br + "Person Days: " + proj.getPersonDays()+ " Factor: " + proj.getFactor() + "<hr>");
                     //activeObjects.delete(proj);
                 }
                 return null;
@@ -123,7 +123,7 @@ public class CreateProject extends HttpServlet
             connection.setHostnameVerifier(new InvalidCertificateHostVerifier());
 
             return SharedMethods.readAllLines(connection.getInputStream());
-            //<editor-fold>
+            //<editor-fold defaultstate="collapsed">
 //        String ret = "";
 //        try {
 //            URL url = new URL(apiReq + cmd);
@@ -158,7 +158,7 @@ public class CreateProject extends HttpServlet
         return "";
 
     }
-    //<editor-fold>
+    //<editor-fold defaultstate="collapsed">
 //    private String executePostRequestApi(String dataToSend)
 //    {
 //        String lines ="";
@@ -200,14 +200,14 @@ public class CreateProject extends HttpServlet
     //</editor-fold>
     private int createReleasePlan(HttpServletRequest req)
     {
-        final String name = req.getParameter("ProjectName");
-        final int sprints = Integer.parseInt(req.getParameter("Sprints"));
+        final String title = req.getParameter("Title");
+        final int spPerEpicPerSprint = Integer.parseInt(req.getParameter("SpPerEpicPerSprint"));
         final int sprintDuration = Integer.parseInt(req.getParameter("SprintDuration"));
         final int storypoints = Integer.parseInt(req.getParameter("StoryPoints"));
         final String sD = req.getParameter("StartDate");
         final String eD = req.getParameter("EndDate");
         final int jiraProjectId = Integer.parseInt(req.getParameter("Project"));
-        final int manDays = Integer.parseInt(req.getParameter("ManDays"));
+        final int personDays = Integer.parseInt(req.getParameter("PersonDays"));
         final int factor = Integer.parseInt(req.getParameter("Factor"));
 
         String[] split = sD.split("\\.");
@@ -217,21 +217,22 @@ public class CreateProject extends HttpServlet
         cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1]) - 1, Integer.parseInt(split[0]));
         final Date endDate = cal.getTime();
 
+        
         activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()
         {
             public ReleasePlanProject doInTransaction()
             {
                 final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class);
-                proj.setName(name);
+                proj.setTitle(title);
                 proj.setJiraProjectId(jiraProjectId);
                 proj.setStartDate(startDate);
                 proj.setEndDate(endDate);
-                proj.setSprints(sprints);
+                proj.setSpPerEpicPerSprint(spPerEpicPerSprint);
                 proj.setStorypoints(storypoints);
                 proj.setSprintDuration(sprintDuration);
                 proj.setProjectFinished(false);
                 proj.setNote("");
-                proj.setManDays(manDays);
+                proj.setPersonDays(personDays);
                 proj.setFactor(factor);
                 proj.save();
                 return proj;

@@ -14,20 +14,20 @@ import java.util.GregorianCalendar;
  */
 public class ReleasePlanProjectBean
 {
-    private String name, notes;
+    private String title, notes;
     private Date startDate, endDate;
-    private Integer sprints, sprintDuration,storyPoints, jiraProjectId, manDays, factor;
+    private Integer spPerEpicPerSprint, sprintDuration,storyPoints, jiraProjectId, personDays, factor;
     private boolean projectfinished;
 
-    public ReleasePlanProjectBean(String name,String notes, Date startDate, Date endDate, Integer sprints, Integer sprintDuration,Integer manDays, Integer factor, Integer storyPoints, Integer jiraProjectId, boolean projectfinished)
+    public ReleasePlanProjectBean(String title,String notes, Date startDate, Date endDate, Integer spPerEpicPerSprint, Integer sprintDuration,Integer personDays, Integer factor, Integer storyPoints, Integer jiraProjectId, boolean projectfinished)
     {
-        this.name = name;
+        this.title = title;
         this.notes = notes;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.sprints = sprints;
+        this.spPerEpicPerSprint = spPerEpicPerSprint;
         this.sprintDuration = sprintDuration;
-        this.manDays = manDays;
+        this.personDays = personDays;
         this.factor = factor;
         this.storyPoints = storyPoints;
         this.jiraProjectId = jiraProjectId;
@@ -38,15 +38,8 @@ public class ReleasePlanProjectBean
     {
     }
 
-    public Integer getManDays()
-    {
-        return manDays;
-    }
 
-    public void setManDays(Integer manDays)
-    {
-        this.manDays = manDays;
-    }
+   
 
     public Integer getFactor()
     {
@@ -68,16 +61,6 @@ public class ReleasePlanProjectBean
         this.notes = notes;
     }
 
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
     public Date getStartDate()
     {
         return startDate;
@@ -96,16 +79,6 @@ public class ReleasePlanProjectBean
     public void setEndDate(Date endDate)
     {
         this.endDate = endDate;
-    }
-
-    public Integer getSprints()
-    {
-        return sprints;
-    }
-
-    public void setSprints(Integer sprints)
-    {
-        this.sprints = sprints;
     }
 
     public Integer getSprintDuration()
@@ -147,6 +120,37 @@ public class ReleasePlanProjectBean
     {
         this.projectfinished = projectfinished;
     }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public Integer getSpPerEpicPerSprint()
+    {
+        return spPerEpicPerSprint;
+    }
+
+    public void setSpPerEpicPerSprint(Integer spPerEpicPerSprint)
+    {
+        this.spPerEpicPerSprint = spPerEpicPerSprint;
+    }
+
+    public Integer getPersonDays()
+    {
+        return personDays;
+    }
+
+    public void setPersonDays(Integer personDays)
+    {
+        this.personDays = personDays;
+    }
+    
     
     
     

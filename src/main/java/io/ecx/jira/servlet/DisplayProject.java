@@ -59,7 +59,7 @@ public class DisplayProject extends HttpServlet
         String projectJson = "";
         if (projects.length > 0)
         {
-            ReleasePlanProjectBean project = new ReleasePlanProjectBean(projects[0].getName(),projects[0].getNote(), projects[0].getStartDate(), projects[0].getEndDate(), projects[0].getSprints(), projects[0].getSprintDuration(),projects[0].getManDays(),projects[0].getFactor(), projects[0].getStorypoints(), projects[0].getJiraProjectId(), projects[0].getProjectFinished());
+            ReleasePlanProjectBean project = new ReleasePlanProjectBean(projects[0].getTitle(),projects[0].getNote(), projects[0].getStartDate(), projects[0].getEndDate(), projects[0].getSpPerEpicPerSprint(), projects[0].getSprintDuration(),projects[0].getPersonDays(),projects[0].getFactor(), projects[0].getStorypoints(), projects[0].getJiraProjectId(), projects[0].getProjectFinished());
             GsonBuilder gsonBuilder = new GsonBuilder();
             gsonBuilder.setDateFormat("yyyy-MM-dd");
             Gson gson = gsonBuilder.create();

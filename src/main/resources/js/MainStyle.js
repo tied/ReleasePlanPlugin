@@ -12,14 +12,14 @@ $(function ()
 function init()
 {
     console.log("INIT");
-    $("#man-days").change(calcSP);
+    $("#person-days").change(calcSP);
     $("#factor").change(calcSP);
 }
 
 function calcSP()
 {
     console.log("calc");
-    var sp = ($("#man-days").val() * $("#factor").val());
+    var sp = ($("#person-days").val() * $("#factor").val());
     $("#story-points").val(sp);
 }
 
