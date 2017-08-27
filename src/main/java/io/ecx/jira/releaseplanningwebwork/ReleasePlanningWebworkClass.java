@@ -38,7 +38,7 @@ public class ReleasePlanningWebworkClass extends JiraWebActionSupport
 
                 for (ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
                 {
-                    log.warn(proj.getName() + " " + proj.getJiraProjectId());
+                    log.warn(proj.getTitle()+ " " + proj.getJiraProjectId());
                 }
                 return null;
             }

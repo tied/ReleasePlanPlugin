@@ -8,7 +8,7 @@ package io.ecx.jira.ao;
 import java.util.Date;
 import net.java.ao.Entity;
 import net.java.ao.Preload;
-import net.java.ao.schema.PrimaryKey;
+import net.java.ao.schema.Unique;
 /**
  *
  * @author Alexander
@@ -16,6 +16,7 @@ import net.java.ao.schema.PrimaryKey;
 @Preload
 public interface ReleasePlanProject extends Entity
 {
+    @Unique
     String getTitle();
     void setTitle(String title);
     
@@ -40,7 +41,7 @@ public interface ReleasePlanProject extends Entity
     Integer getStorypoints();
     void setStorypoints(Integer storypoints);
     
-    @PrimaryKey("JIRA_PROJECT_ID")
+    @Unique
     Integer getJiraProjectId();
     void setJiraProjectId(Integer jiraProjectId);
     

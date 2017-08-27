@@ -127,10 +127,10 @@ function restrictEndDate()
 function validateForm()
 {
     var form = document.forms["createProjectForm"];
-    var projectName = form["ProjectName"].value;
+    var projectName = form["Title"].value;
     var startDate = form["StartDate"].value;
     var endDate = form["EndDate"].value;
-    var manDays = form["ManDays"].value;
+    var manDays = form["PersonDays"].value;
     var factor = form["Factor"].value;
 
     if (projectName == "" || startDate == "" || endDate == "" || manDays == "" || factor == "")

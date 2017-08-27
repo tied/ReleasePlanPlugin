@@ -24,6 +24,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -53,6 +54,7 @@ public class CreateProject extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
     {
+        pw = resp.getWriter();
         String redirect = ComponentAccessor.getApplicationProperties().getString(APKeys.JIRA_BASEURL);
         JiraAuthenticationContext jiraAuthenticationContext = ComponentAccessor.getJiraAuthenticationContext();
         ApplicationUser user = jiraAuthenticationContext.getLoggedInUser();
@@ -87,7 +89,7 @@ public class CreateProject extends HttpServlet
 
                 for (ReleasePlanProject proj : activeObjects.find(ReleasePlanProject.class))
                 {
-                    pw.print("Title: " + proj.getTitle()+ br + "\r\nNotes: " + proj.getNote() + br + "\r\nJiraProjectId: " + proj.getJiraProjectId() + br + "\r\nSpPerSprintPerEpic: " + proj.getSpPerEpicPerSprint()+ br + "\r\nSprintDuration: " + proj.getSprintDuration() + br + "\r\nStartDate: " + proj.getStartDate() + br + "\r\nEndDate: " + proj.getEndDate() + br + "\r\nStorypoints: " + proj.getStorypoints() + br + "\r\nProject Finished: " + proj.getProjectFinished() + br + "Person Days: " + proj.getPersonDays()+ " Factor: " + proj.getFactor() + "<hr>");
+                    pw.print("Title: " + proj.getTitle() + br + "\r\nNotes: " + proj.getNote() + br + "\r\nJiraProjectId: " + proj.getJiraProjectId() + br + "\r\nSpPerSprintPerEpic: " + proj.getSpPerEpicPerSprint() + br + "\r\nSprintDuration: " + proj.getSprintDuration() + br + "\r\nStartDate: " + proj.getStartDate() + br + "\r\nEndDate: " + proj.getEndDate() + br + "\r\nStorypoints: " + proj.getStorypoints() + br + "\r\nProject Finished: " + proj.getProjectFinished() + br + "Person Days: " + proj.getPersonDays() + " Factor: " + proj.getFactor() + "<hr>");
                     //activeObjects.delete(proj);
                 }
                 return null;
@@ -217,27 +219,48 @@ public class CreateProject extends HttpServlet
         cal = new GregorianCalendar(Integer.parseInt(split[2]), Integer.parseInt(split[1]) - 1, Integer.parseInt(split[0]));
         final Date endDate = cal.getTime();
 
-        
-        activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()
+        final HashMap<String,Object> params = new HashMap<String, Object>();
+        params.put("TITLE", title);
+        params.put("JIRA_PROJECT_ID", jiraProjectId);
+        params.put("START_DATE", startDate);
+        params.put("END_DATE", endDate);
+        params.put("NOTE", "");
+        params.put("PROJECT_FINISHED", false);
+        params.put("SP_PER_EPIC_PER_SPRINT",spPerEpicPerSprint);
+        params.put("SPRINT_DURATION", sprintDuration);
+        params.put("STORYPOINTS", storypoints);
+        params.put("PERSON_DAYS", personDays);
+        params.put("FACTOR", factor);
+        try
         {
-            public ReleasePlanProject doInTransaction()
+            activeObjects.executeInTransaction(new TransactionCallback<ReleasePlanProject>()
             {
-                final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class);
-                proj.setTitle(title);
-                proj.setJiraProjectId(jiraProjectId);
-                proj.setStartDate(startDate);
-                proj.setEndDate(endDate);
-                proj.setSpPerEpicPerSprint(spPerEpicPerSprint);
-                proj.setStorypoints(storypoints);
-                proj.setSprintDuration(sprintDuration);
-                proj.setProjectFinished(false);
-                proj.setNote("");
-                proj.setPersonDays(personDays);
-                proj.setFactor(factor);
-                proj.save();
-                return proj;
-            }
-        });
+                public ReleasePlanProject doInTransaction()
+                {
+//                    final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class);
+//                    proj.setTitle(title);
+//                    proj.setJiraProjectId(jiraProjectId);
+//                    proj.setStartDate(startDate);
+//                    proj.setEndDate(endDate);
+//                    proj.setSpPerEpicPerSprint(spPerEpicPerSprint);
+//                    proj.setStorypoints(storypoints);
+//                    proj.setSprintDuration(sprintDuration);
+//                    proj.setProjectFinished(false);
+//                    proj.setNote("");
+//                    proj.setPersonDays(personDays);
+//                    proj.setFactor(factor);
+//                    proj.save();
+//                    return proj;
+                    
+                    final ReleasePlanProject proj = activeObjects.create(ReleasePlanProject.class, params);
+                    return proj;
+                }
+            });
+        } catch (Exception ex)
+        {
+            ex.printStackTrace(pw);
+        }
+
         return jiraProjectId;
     }
 
