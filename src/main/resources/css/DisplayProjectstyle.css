@@ -36,3 +36,8 @@
     text-align: center;
     
 }
+
+.rp_textHeader textarea{
+    resize: none;
+    width: 120px;
+}

@@ -24,6 +24,7 @@ window.onload = function addColumns() {
     }
     displayProjectStats();
     fillTableWithDates();
+    addTextHeader(columncount);
 }
 
 
@@ -96,3 +97,11 @@ function fillTableWithDates() {
     }
 
 }
+
+
+        function addTextHeader(columncount) {
+        for (var i = 0; i < columncount; i++) {
+        var row = document.getElementById("rp_textHeader");
+                row.insertCell(i).innerHTML = '  <td> <textarea maxlength="50" rows="3" ></textarea> </td>';
+        }
+    }
