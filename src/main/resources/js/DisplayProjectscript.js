@@ -1,4 +1,4 @@
-window.onload = function addColumns() {
+window.onload = function onLoad() {
     document.getElementById("startSprint").innerHTML = '<p class="sprint_title">Sprint 1</p><br>\n\
   <input style="width: 120px"  id="sprint_start_date" title="Sprintstartdate" onkeydown="return false" placeholder="Start Date" name="sprint_end_date" type="text"><br>\n\
   <input style="width: 120px"  id="sprint_end_date" title="Sprintenddate" onkeydown="return false" placeholder="End Date" name="sprint_end_date" type="text"><br>\n\
@@ -19,12 +19,12 @@ window.onload = function addColumns() {
         <input style="width: 50px" type="number" value="' + project.personDays + '" ><br>   \n\
         SP: <input style="width: 90px" type="number" value="' + project.storyPoints + '" ><br></td>';
 
-        var row = document.getElementById("rp_row_2");
-        row.insertCell(i).innerHTML = '<td > </td>';
     }
     displayProjectStats();
     fillTableWithDates();
     addTextHeader(columncount);
+    innerTable(columncount);
+    dragDrop();
 }
 
 
@@ -39,10 +39,6 @@ function calculateWeeksBetween(date1, date2) {
 function displayProjectStats() {
     var startdateparts = project.startDate.split('-');
     var enddateparts = project.endDate.split('-');
-
-    //$("#start_date").val('Start: ' + startdateparts[2] + '.' + startdateparts[1] + '.' + startdateparts[0]);
-    //$("#end_date").val('End: ' + enddateparts[2] + '.' + enddateparts[1] + '.' + enddateparts[0]);
-    //$("#project_title").val(project.title + ' Release - Plan');
 
     document.getElementById("start_date").innerHTML = 'Start: ' + startdateparts[2] + '.' + startdateparts[1] + '.' + startdateparts[0];
     document.getElementById("end_date").innerHTML = 'End: ' + enddateparts[2] + '.' + enddateparts[1] + '.' + enddateparts[0];
@@ -105,3 +101,43 @@ function fillTableWithDates() {
                 row.insertCell(i).innerHTML = '  <td> <textarea maxlength="50" rows="3" ></textarea> </td>';
         }
     }
+    
+    /**
+ * Comment
+ */
+function innerTable(columncount) {
+    document.getElementById("colSpan").colSpan = columncount;
+    var row = document.getElementById("inner_Table_tr");
+    row.insertCell(0).innerHTML = '<td id="inner_Table_td_'+i+'">  <span draggable="true" class="event" background="black" >asdf</span> </td>';
+    for (var i = 1; i < columncount; i++) {
+        row.insertCell(i).innerHTML = '<td id="inner_Table_td_'+i+'"> </td>';
+    }
+      //  $("#inner_Table_td_0").innerHTML='<span draggable="true" class="dragEvent" >asdf</span>';
+
+}
+
+/**
+ * Comment
+ */
+function dragDrop() {
+      $(document).ready(function () {
+        $('.event').on("dragstart", function (event) {
+            var dt = event.originalEvent.dataTransfer;
+            dt.setData('Text', $(this).attr('id'));
+        });
+        $('#inner_Table td').on("dragenter dragover drop", function (event) {
+            event.preventDefault();
+            if (event.type === 'drop') {
+                var data = event.originalEvent.dataTransfer.getData('Text', $(this).attr('id'));
+
+                de = $('#' + data).detach();
+                if (event.originalEvent.target.tagName === "SPAN") {
+                    de.insertBefore($(event.originalEvent.target));
+                }
+                else {
+                    de.appendTo($(this));
+                }
+            };
+        });
+    })
+}

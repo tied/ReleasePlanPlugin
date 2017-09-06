@@ -41,3 +41,17 @@
     resize: none;
     width: 120px;
 }
+
+#inner_Table td{
+    width: 130px;
+}
+
+
+#inner_Table span {
+    display: block;
+    background-color: #ccc;
+    border: 1px solid black;
+    color: fff;
+    height: 30px;
+    width: 100%;
+}
