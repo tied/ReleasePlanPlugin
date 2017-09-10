@@ -111,13 +111,30 @@ function addTextHeader(columncount) {
 function innerTable(columncount) {
     document.getElementById("colSpan").colSpan = columncount;
     var row = document.getElementById("inner_Table_tr");
-    row.insertCell(0).innerHTML = '<td id="inner_Table_td_'+i+'">  <span draggable="true" class="event" background="black" >Epic 1</span> </td>';
+   // row.insertCell(0).innerHTML = '<td id="inner_Table_td_0">  <span draggable="true" class="event" background="black" >Epic 1</span> </td>';
+    
+    
+    var newel = document.createElement('td');
+    var elementid = 'inner_Table_td_0';
+    newel.setAttribute('id',elementid);
+    newel.innerHTML = '<span draggable="true" class="event" background="black" >Epic 1</span>';
+    row.appendChild(newel);
+    
+    
     for (var i = 1; i < columncount; i++) {
-        row.insertCell(i).innerHTML = '<td >  </td>';
+    //row.insertCell(i).innerHTML = '<td >  </td>';
+    
+    var newel = document.createElement('td');
+    var elementid = 'inner_Table_td_'+i;
+    newel.setAttribute('id',elementid);
+    //newel.innerHTML = '<span draggable="true" class="event" background="black" >Epic 1</span>';
+    row.appendChild(newel);
+        
     }
-      //  $("#inner_Table_td_0").innerHTML='<span draggable="true" class="dragEvent" >asdf</span>';
+      //  $("#inner_Table_td_0").innerHTML='<span draggable="true" class="event" >asdf</span>';
 
 }
+
 
 /**
  * Comment
@@ -144,19 +161,14 @@ function dragDrop() {
            // console.table(event);
             if (event.type === 'drop') {
                 var data = event.originalEvent.dataTransfer.getData('Text', $(this).attr('id'));
-                console.table(event);
                 console.log("orE:");
                 console.log(event.originalEvent.dataTransfer.getData('Text', $(this).attr('id')));
 
                 de = $('#' + data).detach();
                 if (event.originalEvent.target.tagName === "SPAN") {
                     de.insertBefore($(event.originalEvent.target));
-                   
-                    console.log("==span");
                 }
                 else {
-                                        console.log("not span");
-
                     de.appendTo($(this));
                 }
             };
