@@ -33,8 +33,8 @@ function createProject()
 {
     $("#dialog").dialog({
         resizable: false,
-        height: 380,
-        width: 400,
+        height: 480,
+        width: 450,
         modal: true
     });
     var dialog = document.getElementById("dialog");

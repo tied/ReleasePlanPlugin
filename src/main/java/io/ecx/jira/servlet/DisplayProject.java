@@ -55,7 +55,6 @@ public class DisplayProject extends HttpServlet
                 + "        <meta name=\"decorator\" content=\"atl.general\">\n"
                 + "    </head>"
                 + "<body>");
-
         String projectJson = "";
         if (projects.length > 0)
         {
