@@ -44,6 +44,12 @@
 
 #inner_Table td{
     width: 130px;
+    border-collapse: collapse;
+}
+
+#inner_Table{
+     border-collapse: collapse;
+     height: 100%;
 }
 
 

@@ -71,7 +71,6 @@ function fillTableWithDates(columncount) {
     $("#sprint_end_date").val(sprintDate.getDate() + '.' + (sprintDate.getMonth() + 1) + '.' + sprintDate.getFullYear());
     
     for (var i = 1; i <= columncount; i++) {
-         console.log("loop"+i);
         $("#sprint_start_date" + i).datepicker({
             showOn: 'focus',
             showButtonPanel: true,
@@ -90,7 +89,6 @@ function fillTableWithDates(columncount) {
         sprintDate = new Date(+sprintDate + sprintDuration);
         sprintDate = new Date(+sprintDate - 864e5);
         $("#sprint_end_date" + i).val(sprintDate.getDate() + '.' + (sprintDate.getMonth() + 1) + '.' + sprintDate.getFullYear());
-            console.log("loop"+i);
 
     }
 
@@ -100,7 +98,7 @@ function fillTableWithDates(columncount) {
 function addTextHeader(columncount) {
         for (var i = 0; i < columncount; i++) {
         var row = document.getElementById("rp_textHeader");
-                row.insertCell(i).innerHTML = '  <td> <textarea maxlength="50" rows="3" ></textarea> </td>';
+                row.insertCell(i).innerHTML = '  <td> <textarea id="restriction_textarea_'+i+'" maxlength="50" rows="3" ></textarea> </td>';
         }
     }
     
@@ -118,7 +116,7 @@ function innerTable(columncount) {
     var newel = document.createElement('td');
     var elementid = 'inner_Table_td_0';
     newel.setAttribute('id',elementid);
-    newel.innerHTML = '<span class="event" colSpan="2" id="epic1" draggable="true">Epic 1</span>';
+    newel.innerHTML = '<span class="event" colSpan="2" id="epic1" draggable="true">Epic 1</span> <span style="width: 200%" class="event" colSpan="2" id="epic2" draggable="true">Epic 2</span>';
      
     row.appendChild(newel);
     
@@ -142,10 +140,8 @@ function innerTable(columncount) {
  * Comment
  */
 function factorPDchanged(columncount) {
-    console.log("before");
  document.getElementById("storyPointsInput_"+columncount).value=
          document.getElementById("factorInput_"+columncount).value  *  document.getElementById("personDaysInput_"+columncount).value;
-     console.log("after");
 
 }
 
@@ -163,8 +159,6 @@ function dragDrop() {
            // console.table(event);
             if (event.type === 'drop') {
                 var data = event.originalEvent.dataTransfer.getData('Text', $(this).attr('id'));
-                console.log("orE:");
-                console.log(event.originalEvent.dataTransfer.getData('Text', $(this).attr('id')));
 
                 de = $('#' + data).detach();
                 if (event.originalEvent.target.tagName === "SPAN") {
