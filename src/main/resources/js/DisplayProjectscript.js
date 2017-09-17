@@ -109,6 +109,7 @@ function addTextHeader(columncount) {
  */
 
 function innerTable(columncount) {
+    
     document.getElementById("colSpan").colSpan = columncount;
     var row = document.getElementById("inner_Table_tr");
    // row.insertCell(0).innerHTML = '<td id="inner_Table_td_0">  <span draggable="true" class="event" background="black" >Epic 1</span> </td>';
@@ -117,7 +118,8 @@ function innerTable(columncount) {
     var newel = document.createElement('td');
     var elementid = 'inner_Table_td_0';
     newel.setAttribute('id',elementid);
-    newel.innerHTML = '<span draggable="true" class="event" background="black" >Epic 1</span>';
+    newel.innerHTML = '<span class="event" colSpan="2" id="epic1" draggable="true">Epic 1</span>';
+     
     row.appendChild(newel);
     
     
