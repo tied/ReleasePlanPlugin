@@ -81,9 +81,13 @@
             <fieldset>
                 <div class="field-group">
                     <label for="project">JIRA-Project<span class="aui-icon icon-required"> required</span></label>
-                    <select id="project" name="Project" class="select">
-                        <!--breakpoint-->
-                    </select>
+                    <!--<input type="text" id="project" name="Project" class="text"/>-->
+                    <input id="project_search" type="text" list="project" name="Project" class="text">
+
+                    <datalist id="project">
+<option value="abc">Fire</option>
+                    </datalist>
+
                 </div>
             </fieldset>
             <hr/>
