@@ -6,6 +6,7 @@ $(function ()
 //    document.getElementById("man-days").addEventListener("input", calcSP());
     init();
     datePickers();
+    AJS.$("#project").auiSelect2();
 });
 
 function init()
