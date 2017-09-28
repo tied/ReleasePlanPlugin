@@ -22,13 +22,13 @@
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="displayProjectstyle.css" location="/css/DisplayProjectstyle.css"/>
     <resource type="download" name="displayProjectscript.js" location="/js/DisplayProjectscript.js"/>
-    <dependency>com.atlassian.auiplugin:aui-select2</dependency>
     <context>ReleasePlanPlugin</context>
   </web-resource>
   <web-resource key="MainStyle-resources" name="MainStyle Web Resources">
     <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="MainStyle.css" location="/css/MainStyle.css"/>
     <resource type="download" name="MainStyle.js" location="/js/MainStyle.js"/>
+    <dependency>com.atlassian.auiplugin:aui-select2</dependency><!--projectcombobox-->
     <context>ReleasePlanPlugin</context>
   </web-resource>
   <servlet name="Create Project" i18n-name-key="create-project.name" key="create-project" class="io.ecx.jira.servlet.CreateProject">
