@@ -6,27 +6,7 @@ $(function ()
 //    document.getElementById("man-days").addEventListener("input", calcSP());
     init();
     datePickers();
-    $('#project_search').on('input', filterProjects);
-
 });
-
-function filterProjects()
-{
-    var a = [{"expand": "description,lead,url,projectKeys", "self": "https://ticket.ecx.io/rest/api/2/project/20600", "id": "20600", "key": "HTLGR", "name": "HTL Grieskirchen", "avatarUrls": {"48x48": "https://ticket.ecx.io/secure/projectavatar?avatarId=10011", "24x24": "https://ticket.ecx.io/secure/projectavatar?size=small&avatarId=10011", "16x16": "https://ticket.ecx.io/secure/projectavatar?size=xsmall&avatarId=10011", "32x32": "https://ticket.ecx.io/secure/projectavatar?size=medium&avatarId=10011"}, "projectCategory": {"self": "https://ticket.ecx.io/rest/api/2/projectCategory/11615", "id": "11615", "name": "Other", "description": ""}}];
-    var s = document.getElementById('project_search').value;
-    console.log(s.toString().toLowerCase());
-    $('#project').remove();
-    for (var i = 0; i < a.length; i++) {
-        console.log(a[i].name.toLowerCase() + ' a');
-        console.log(s.toString().toLowerCase() + ' s');
-        if (a[i].name.toLowerCase().startsWith(s.toString().toLowerCase())) {
-            console.log("schleife");
-            $('#project').append('<option value='+ a[i].id +' >' + a[i].name + '</option>');
-        }
-    }
-        
-    console.log("Filter ");
-}
 
 function init()
 {
