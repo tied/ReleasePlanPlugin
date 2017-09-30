@@ -46,8 +46,8 @@ function showEpicDetails(){
     console.warn('epic details button clicked');
     $("#epicdialog").dialog({
         resizable: false,
-        height: 250,
-        width: 320,
+        height: 200,
+        width: 330,
         modal: true
     });
     var epicdialog = document.getElementById("epicdialog");
