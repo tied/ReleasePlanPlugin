@@ -88,9 +88,37 @@
 
                 </div>
             </fieldset>
+            
+            <div id="epicdialog">
+            <fieldset>
+                <input type="hidden" value="Detailansicht Epic" id="epic-details" name="Action">
+                <div class="field-group">
+                    <label>Epic Titel: </label>
+                    <input style="float:right;" class="text" type="text" id="epic-title-details">
+                </div>
+                <br>
+                <div class="field-group">
+                    <label>Beschreibung: </label>
+                    <input style="float:right;" class="text" type="text" id="epic-desc-details">
+                </div>
+                <br>
+                <div class="field-group">
+                    <label>Storypoints: </label>
+                    <input style="float:right;" id="storypoints-details" class="text short-field" type="number"/>
+                </div>
+                <br>
+                <div class="field-group">
+                    <label>Startsprint: </label>
+                    <input style="float:right;" id="startsprint-details" class="text" type="text"/>
+                </div>
+            </fieldset>
+            </div>
+                
             <hr/>
             <a id="cancel" class="cancel" style="float: right" onclick="cancelClicked()">Cancel</a>
             <input type="submit" class="aui-button aui-button-primary" value="Create" style="float: right"/>
         </form>
     </div>
+    <a style="float: right;" onclick="showEpicDetails()">Epic Details</a>
+
 

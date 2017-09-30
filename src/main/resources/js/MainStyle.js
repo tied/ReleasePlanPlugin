@@ -42,6 +42,18 @@ function createProject()
     console.warn("click");
 }
 
+function showEpicDetails(){
+    console.warn('epic details button clicked');
+    $("#epicdialog").dialog({
+        resizable: false,
+        height: 250,
+        width: 320,
+        modal: true
+    });
+    var epicdialog = document.getElementById("epicdialog");
+    epicdialog.removeAttribute("hidden");
+}
+
 function datePickers()
 {
     var sd = document.getElementById("start-date");
