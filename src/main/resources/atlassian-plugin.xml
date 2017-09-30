@@ -50,6 +50,9 @@
   <ao key="ao-module">
     <description>Active Objects Module for plugin-project data</description>
     <entity>io.ecx.jira.ao.ReleasePlanProject</entity>
+    <entity>io.ecx.jira.ao.Epic</entity>
+    <entity>io.ecx.jira.ao.Sprint</entity>
+    <!--<entity>io.ecx.jira.ao.SprintToEpic</entity>-->
   </ao>
   <servlet name="Display Project" i18n-name-key="display-project.name" key="display-project" class="io.ecx.jira.servlet.DisplayProject">
     <description key="display-project.description">The Display Project Plugin</description>

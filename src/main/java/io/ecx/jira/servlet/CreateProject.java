@@ -8,7 +8,10 @@ import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.plugin.Plugin;
 import com.atlassian.sal.api.transaction.TransactionCallback;
 import com.atlassian.webresource.api.assembler.PageBuilderService;
+import io.ecx.jira.ao.Epic;
 import io.ecx.jira.ao.ReleasePlanProject;
+import io.ecx.jira.ao.Sprint;
+import io.ecx.jira.ao.SprintToEpic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +32,7 @@ import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
+import net.java.ao.DBParam;
 import org.apache.commons.codec.binary.Base64;
 
 public class CreateProject extends HttpServlet
@@ -95,7 +99,82 @@ public class CreateProject extends HttpServlet
                 return null;
             }
         });
+//        try{
+//        activeObjects.executeInTransaction(new TransactionCallback<Void>()
+//        {
+//            public Void doInTransaction()
+//            {
+//                Epic e1 = activeObjects.create(Epic.class, new DBParam("ID",1), new DBParam("NAME", "Epic 1"));
+//                e1.save();
+//                Epic e2 = activeObjects.create(Epic.class, new DBParam("ID",2), new DBParam("NAME", "Epic 2"));
+//                e2.save();
+//                
+//                Sprint s1 = activeObjects.create(Sprint.class, new DBParam("ID", 1), new DBParam("NAME", "Sprint 1"));
+//                Sprint s2 = activeObjects.create(Sprint.class, new DBParam("ID", 2), new DBParam("NAME", "Sprint 2"));
+//                
+//                SprintToEpic ste = activeObjects.create(SprintToEpic.class);
+//                ste.setEpic(e1);
+//                ste.setSprint(s1);
+//                ste.save();
+//                SprintToEpic ste1 = activeObjects.create(SprintToEpic.class);
+//                ste1.setEpic(e1);
+//                ste1.setSprint(s2);
+//                ste1.save();
+//                SprintToEpic ste2 = activeObjects.create(SprintToEpic.class);
+//                ste2.setEpic(e2);
+//                ste2.setSprint(s2);
+//                ste2.save();
+//                
+//                return null;
+//            }
+//        });}
+//        catch (Exception ex)
+//        {
+//            ex.printStackTrace(pw);
+//        }
 
+        activeObjects.executeInTransaction(new TransactionCallback<Void>()
+        {
+            public Void doInTransaction()
+            {
+                Sprint s1 = activeObjects.create(Sprint.class, new DBParam("ID", 1), new DBParam("NAME", "Sprint 1"));
+                Sprint s2 = activeObjects.create(Sprint.class, new DBParam("ID", 2), new DBParam("NAME", "Sprint 2"));
+                
+                Epic e1 = activeObjects.create(Epic.class, new DBParam("ID",1), new DBParam("NAME", "Epic 1"));
+                //e1.setStartSprint(s1);
+                e1.save();
+                Epic e2 = activeObjects.create(Epic.class, new DBParam("ID",2), new DBParam("NAME", "Epic 2"));
+                //e2.setStartSprint(s1);
+                e2.save();
+                s1.setEpics(new Epic[]{e1,e2});
+                s2.setEpics(new Epic[]{e1});
+                s1.save();s2.save();
+                return null;
+            }
+        });
+
+        activeObjects.executeInTransaction(new TransactionCallback<Void>()
+        {
+            public Void doInTransaction()
+            {
+                for(Epic e : activeObjects.find(Epic.class))
+                {
+                    pw.write("Name: "+e.getName()+br+"Startsprint: "+e.getStartSprint().getName());
+                    pw.write("<hr>");
+                }
+                pw.write("Sprints:"+br+"<hr>");
+                for(Sprint s : activeObjects.find(Sprint.class))
+                {
+                    pw.write("Name: "+s.getName()+br);
+                    for(Epic e : s.getEpics())
+                    {
+                        pw.write("Name: "+e.getName()+br+"Startsprint: "+e.getStartSprint().getName()+"<hr>");
+                    }
+                    
+                }
+                return null;
+            }
+        });
     }
 
     private String executeGetRequestApi(String cmd)
