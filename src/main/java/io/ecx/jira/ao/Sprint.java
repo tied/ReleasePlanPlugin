@@ -6,7 +6,6 @@
 package io.ecx.jira.ao;
 
 import java.util.Date;
-import net.java.ao.ManyToMany;
 import net.java.ao.OneToMany;
 import net.java.ao.Preload;
 import net.java.ao.RawEntity;
@@ -33,7 +32,10 @@ public interface Sprint extends RawEntity<Integer>
     Date getEndDate();
     void setEndDate(Date endDate);
     
+    int getStoryPointCapacity();
+    void setStoryPointCapacity(int capacity);
+    
     @OneToMany
     Epic[] getEpics();
-    void setEpics(Epic[] epics);
+    //void setEpics(Epic[] epics);
 }

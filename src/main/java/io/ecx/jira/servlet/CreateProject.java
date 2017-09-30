@@ -133,25 +133,24 @@ public class CreateProject extends HttpServlet
 //            ex.printStackTrace(pw);
 //        }
 
-        activeObjects.executeInTransaction(new TransactionCallback<Void>()
-        {
-            public Void doInTransaction()
-            {
-                Sprint s1 = activeObjects.create(Sprint.class, new DBParam("ID", 1), new DBParam("NAME", "Sprint 1"));
-                Sprint s2 = activeObjects.create(Sprint.class, new DBParam("ID", 2), new DBParam("NAME", "Sprint 2"));
-                
-                Epic e1 = activeObjects.create(Epic.class, new DBParam("ID",1), new DBParam("NAME", "Epic 1"));
-                //e1.setStartSprint(s1);
-                e1.save();
-                Epic e2 = activeObjects.create(Epic.class, new DBParam("ID",2), new DBParam("NAME", "Epic 2"));
-                //e2.setStartSprint(s1);
-                e2.save();
-                s1.setEpics(new Epic[]{e1,e2});
-                s2.setEpics(new Epic[]{e1});
-                s1.save();s2.save();
-                return null;
-            }
-        });
+//        activeObjects.executeInTransaction(new TransactionCallback<Void>()
+//        {
+//            public Void doInTransaction()
+//            {
+//                Sprint s1 = activeObjects.create(Sprint.class, new DBParam("ID", 1), new DBParam("NAME", "Sprint 1"));
+//                Sprint s2 = activeObjects.create(Sprint.class, new DBParam("ID", 2), new DBParam("NAME", "Sprint 2"));
+//                
+//                Epic e1 = activeObjects.create(Epic.class, new DBParam("ID",1), new DBParam("NAME", "Epic 1"));
+//                e1.setStartSprint(s1);
+//                e1.save();
+//                Epic e2 = activeObjects.create(Epic.class, new DBParam("ID",2), new DBParam("NAME", "Epic 2"));
+//                e2.setStartSprint(s1);
+//                e2.save();
+//                
+//                
+//                return null;
+//            }
+//        });
 
         activeObjects.executeInTransaction(new TransactionCallback<Void>()
         {

@@ -34,4 +34,6 @@ public interface Epic extends RawEntity<Integer>
     Sprint getStartSprint();
     void setStartSprint(Sprint start);
     
+    
+    
 }
